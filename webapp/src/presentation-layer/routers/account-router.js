@@ -11,6 +11,17 @@ router.get("/sign-in", function(request, response){
 	response.render("accounts-sign-in.hbs")
 })
 
+router.post("/sign-up", function(request, response){
+  
+	const username = request.body.username
+	const password = request.body.password
+	const username = request.body.repeat-password
+	  
+	accountManager.createAccount(account)({	
+	})
+	  response.render("new-post.hbs")
+  });
+
 router.get("/", function(request, response){
 	accountManager.getAllAccounts(function(errors, accounts){
 		console.log(errors, accounts)
