@@ -13,12 +13,14 @@ router.get("/sign-in", function(request, response){
 
 router.post("/sign-up", function(request, response){
   
-	const username = request.body.username
-	const password = request.body.password
-	const username = request.body.repeat-password
-	  
-	accountManager.createAccount(account)({	
+	const user = request.body.username
+	const pass = request.body.password
+	
+	var account = {username: user, password: pass}
+	
+	accountManager.createAccount(account, function (error){	
 	})
+	  console.log(account.username, account.password)
 	  response.render("new-post.hbs")
   });
 
