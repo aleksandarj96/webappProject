@@ -6,5 +6,15 @@ CREATE TABLE accounts (
 	CONSTRAINT usernameUnique UNIQUE (username)
 );
 
+CREATE TABLE movieposts (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(50) NOT NULL,
+	post VARCHAR(30) NOT NULL,
+	username VARCHAR(30) NOT NULL
+);
+
 -- Create a dummy account for testing.
 INSERT INTO accounts (username, password) VALUES ("Alice", "abc123");
+
+INSERT INTO movieposts (title, post, username) VALUES ("test", "testing testing testing testing testing", "Biff_Aleks96")
+
