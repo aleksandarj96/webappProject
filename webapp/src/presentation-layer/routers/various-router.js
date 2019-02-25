@@ -33,17 +33,7 @@ router.get("/new-post", function(request, response){
   response.render("new-post.hbs")
 })
 
-router.post("/new-post", function(request, response){
-  
-  const title = request.body.title
-  const post = request.body.post
-  const username = "Biff_Aleks96"
-
-  databaseFunctions.postMoviePost(title, post, username ,function (error){	
-  })
-  	console.log(title, post, username)
-	response.render("new-post.hbs")
-});
+router.post("/new-post", require("./newpost"))
 
 
 

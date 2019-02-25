@@ -4,7 +4,7 @@ const expressHandlebars = require('express-handlebars')
 
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
-
+const bodyParser = require("body-parser")
 const app = express()
 
 // Setup express-handlebars.
@@ -18,6 +18,13 @@ app.engine('hbs', expressHandlebars({
 
 // Handle static files in the public folder.
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(bodyParser.urlencoded({
+	extended: false
+}))
+
+app.use(express.urlencoded({ extended: false }))
+
 
 // Attach all routers.
 app.use('/', variousRouter)
