@@ -11,6 +11,7 @@ router.get("/sign-in", function(request, response){
 	response.render("accounts-sign-in.hbs")
 })
 router.post("/sign-up", require("./signup"))
+router.post("/sign-in", require("./signin"))
 
 router.get("/", function(request, response){
 	accountManager.getAllAccounts(function(errors, accounts){

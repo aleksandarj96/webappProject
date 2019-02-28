@@ -8,10 +8,12 @@ CREATE TABLE accounts (
 
 
 CREATE TABLE movieposts (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(50) NOT NULL, 
 	post VARCHAR(255) NOT NULL, 
 	username VARCHAR(30) NOT NULL
 );
+
 
 
 

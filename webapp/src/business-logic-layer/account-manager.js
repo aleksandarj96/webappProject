@@ -8,11 +8,9 @@ exports.getAllAccounts = function(callback){
 }
 
 exports.createAccount = function(username, password, callback){
-	console.log("innan")
 	// Validate the account.
 	const errors = accountValidator.getErrorsNewAccount(username, password)
-	console.log("efter")
-	
+		
         // Store hash in your password DB.
 	if(0 < errors.length){
 		console.log(errors)
