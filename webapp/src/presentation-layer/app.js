@@ -10,6 +10,8 @@ const app = express()
 // Setup express-handlebars.
 app.set('views', path.join(__dirname, 'views'))
 
+app.use(express.urlencoded({ extended: false }))
+
 app.engine('hbs', expressHandlebars({
 	extname: 'hbs',
 	defaultLayout: 'main',
