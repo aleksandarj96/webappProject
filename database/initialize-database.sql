@@ -7,24 +7,23 @@ CREATE TABLE accounts (
 );
 
 CREATE TABLE movieposts (
-<<<<<<< HEAD
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(50) NOT NULL,
-	post VARCHAR(30) NOT NULL,
-	username VARCHAR(30) NOT NULL
-);
-
-=======
 	title VARCHAR(50) NOT NULL, 
 	post VARCHAR(255) NOT NULL, 
 	username VARCHAR(30) NOT NULL
 );
 
+CREATE TABLE comments (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	comment VARCHAR(255) NOT NULL
+	postid INT NOT NULL,
+	FOREIGN KEY (postId) REFERENCES movieposts(id)
+	FOREIGN KEY (username) REFERENCES movieposts(username)
+);
 
 
->>>>>>> 1cf6331d4af94ed4b18122d2781e60b216160e39
 -- Create a dummy account for testing.
-INSERT INTO accounts (username, password) VALUES ("Alice", "abc123");
 
-INSERT INTO movieposts (title, post, username) VALUES ("test", "testing testing testing testing testing", "Biff_Aleks96")
+
+
 

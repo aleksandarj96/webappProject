@@ -9,3 +9,15 @@ exports.getAllMoviePosts = function(callback){
 exports.postMoviePost = function(title, post, username, callback){
 	databaseFunctions.postMoivePost(title, post, username, callback)
 }
+
+exports.getPostWithId = function(id, callback){
+	databaseFunctions.getPostWithId(id, callback)
+}
+
+exports.getCommentsWithId = function(id, callback){
+	databaseFunctions.getCommentsWithId(id, callback)
+}
+
+exports.commentOnPostWithId = function(id, callback){
+	databaseFunctions.commentOnPostWithId(id, callback)
+}

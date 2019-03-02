@@ -1,0 +1,74 @@
+<style>
+
+.box{
+	width: 100%
+}
+
+.section{
+	padding: 0%
+}
+
+.card {
+	padding: 1%;
+}
+
+.right{
+	float: right;
+}
+
+.left{
+	float: left;
+}
+
+.textarea-in-post{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+
+  resize: none;
+}
+
+</style>
+
+<body>
+
+<br>
+
+{{#each movieposts}}
+
+    <hr>
+  
+	<div class="card" id="card-class">
+	
+	<span class="left"><strong>{{title}}</strong></span>
+	<span class="right">Tag: Question</span>
+	<br>
+	<br>
+    <p>{{post}}</p>
+	<br>	
+	<p><small>Posted by {{username}} at date</small></p>
+
+
+    </div>
+
+{{/each}}
+
+  <form action="" id="comment-form" method="POST">
+
+    <textarea class="textarea-in-post" rows="10" placeholder="Write your comment here..." name="comment" id="comment" required></textarea>
+
+    <button type="submit" class="button is-primary">Comment!</button>
+
+    <hr>
+
+    </form>
+
+{{#each comments}}
+
+<p>{{comment}}</p>
+
+{{/each}}
+</body>
