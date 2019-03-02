@@ -1,10 +1,11 @@
 const path = require('path')
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
-
+const expressSession = require('express-session')
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
-
+const bodyParser = require("body-parser")
+const redisStore = require('connect-redis')(expressSession)
 const app = express()
 
 // Setup express-handlebars.
@@ -18,6 +19,19 @@ app.engine('hbs', expressHandlebars({
 
 // Handle static files in the public folder.
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(bodyParser.urlencoded({
+	extended: false
+}))
+
+app.use(expressSession({
+	secret: 'forum',
+	resave: false,
+	store: new redisStore({ host: 'redis', port: 6379 ,ttl :  260}),
+    saveUninitialized: false,
+}))
+
+app.use(express.urlencoded({ extended: false }))
 
 // Attach all routers.
 app.use('/', variousRouter)

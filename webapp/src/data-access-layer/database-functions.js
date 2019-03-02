@@ -16,7 +16,7 @@ exports.getAllMoviePosts = function(callback){
 	})
 }
 
-exports.postMoivePost = function(title, post, username, callback){
+exports.postMoivePost = function(title, post, username){
 
 	const query = "INSERT INTO movieposts (title, post, username) VALUES (?,?,?)"
 	const values = [title, post, username]
@@ -24,6 +24,7 @@ exports.postMoivePost = function(title, post, username, callback){
 	db.query(query, values, function (error, results){
 		if(error) throw error;
 		console.log("Inserted: ", values);
+<<<<<<< HEAD
 		callback([], results)
 	})
 }
@@ -59,5 +60,8 @@ exports.commentOnPostWithId = function(id, comment, username, callback){
 		if(error) throw error;
 		console.log("COMMENT: ", results);
 		callback([], results)
+=======
+		//callback([], values)
+>>>>>>> 917ce574ea4aa6bea5d0d51c79602421f7dad3ca
 	})
 }

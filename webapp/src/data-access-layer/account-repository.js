@@ -19,6 +19,31 @@ exports.getAllAccounts = function(callback){
 	})
 	
 }
+exports.getAllPasswords = function(callback){
+	
+	const query = `SELECT * FROM accounts ORDER BY username`
+	const values = []
+	
+	db.query(query, values, function(error, accounts){
+		if(error){
+			callback(['databaseError'], null)
+		}else{
+			callback([], accounts)
+		}
+	})
+	
+}
+exports.checkIfExist = function(username, callback){
+	const query = `SELECT password FROM accounts WHERE username = ? `
+	const values = [username]
+	db.query(query, values, function(error, password){
+		if(error){
+			callback(['databaseError'], null)
+		}else{
+			callback([],password[0].password)
+		}
+	})
+}
 
 /*
 	Retrieves the account with the given username.
@@ -46,10 +71,10 @@ exports.getAccountByUsername = function(username, callback){
 	Possible errors: databaseError, usernameTaken
 	Success value: The id of the new account.
 */
-exports.createAccount = function(account, callback){
+exports.createAccount = function(username, password, callback){
 	
 	const query = `INSERT INTO accounts (username, password) VALUES (?, ?)`
-	const values = [account.username, account.password]
+	const values = [username, password]
 	
 	db.query(query, values, function(error, results){
 		if(error){
