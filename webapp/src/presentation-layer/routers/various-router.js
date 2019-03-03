@@ -33,7 +33,6 @@ router.get("/new-post", function(request, response){
   response.render("new-post.hbs")
 })
 
-<<<<<<< HEAD
 router.get("/post/:id", function(request, response){
 
 	const id = request.params.id
@@ -76,9 +75,6 @@ router.post("/new-post", function(request, response){
   	console.log(title, post, username)
 	response.render("new-post.hbs")
 });
-=======
-router.post("/new-post", require("./newpost"))
->>>>>>> 917ce574ea4aa6bea5d0d51c79602421f7dad3ca
 
 
 
