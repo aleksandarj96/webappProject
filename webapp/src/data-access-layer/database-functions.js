@@ -16,14 +16,14 @@ exports.getAllMoviePosts = function(callback){
 	})
 }
 
-exports.postMoivePost = function(title, post, username, callback){
+exports.postMoivePost = function(title, post, username){
 
 	const query = "INSERT INTO movieposts (title, post, username) VALUES (?,?,?)"
 	const values = [title, post, username]
 
-	db.query(query, values, function (error){
+	db.query(query, values, function (error, results){
 		if(error) throw error;
 		console.log("Inserted: ", values);
-		callback([], values)
+		//callback([], values)
 	})
 }

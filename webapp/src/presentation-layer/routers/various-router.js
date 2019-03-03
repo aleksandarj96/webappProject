@@ -33,6 +33,37 @@ router.get("/new-post", function(request, response){
   response.render("new-post.hbs")
 })
 
+router.get("/post/:id", function(request, response){
+
+	const id = request.params.id
+
+	databaseFunctions.getPostWithId(id, function(error, movieposts){
+		databaseFunctions.getCommentsWithId(id, function(error, comments){
+		const model = {
+		error: error,
+		movieposts: movieposts,
+		comments: comments
+	}
+		response.render("post.hbs", model)
+})
+})
+})
+
+router.post("/post/:id", function(request, response){
+
+	const id = request.params.id
+	const comment = request.body.comment
+	databaseFunctions.getPostWithId(id, function(error, movieposts){
+		databaseFunctions.commentOnPostWithId(id, comment, "aleks", function(error){
+		const model = {
+		error: error,
+		movieposts: movieposts
+	}
+	response.render("post.hbs", model)
+})
+})
+})
+
 router.post("/new-post", function(request, response){
   
   const title = request.body.title

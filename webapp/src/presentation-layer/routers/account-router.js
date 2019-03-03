@@ -12,6 +12,8 @@ router.get("/sign-in", function(request, response){
 })
 
 router.post("/sign-up", require("./signup"))
+router.post("/sign-in", require("./signin"))
+
 
 
 router.get("/", function(request, response){
