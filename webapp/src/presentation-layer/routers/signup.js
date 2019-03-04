@@ -3,7 +3,7 @@ const accountManager = require('../../business-logic-layer/account-manager')
 module.exports = function (req, res, next) {
     const username = req.body.username
     const password = req.body.password
-    console.log("Bajs" + username)
+    console.log("Bajs" + username +"hej")
     accountManager.createAccount(username, password, function (errors, accounts) {
         const model = {
             errors: errors,
