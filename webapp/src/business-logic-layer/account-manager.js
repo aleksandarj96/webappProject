@@ -1,26 +1,30 @@
-const accountRepository = require('../data-access-layer/account-repository')
-const accountValidator = require('./account-validator')
+const bcrypt = require('bcryptjs')
+const saltRounds = 10;
+module.exports = function({accountRepository, accountValidator}){
+	return{
+		getAllAccounts:function(callback){
+			accountRepository.getAllAccounts(callback)
+		},
+		
+		createAccount:function(username, password, callback){
+			const errors = accountValidator.getErrorsNewAccount(username, password)
+			if(0 < errors.length){
+				console.log(errors)
+				callback(errors, null)
+				return
+			}
+			bcrypt.hash(password, saltRounds, function (err, hash) {
+				accountRepository.createAccount(username, hash, callback)
+			})
+			
+			
+		},
+		
+		getAccountByUsername:function(username, callback){
+			accountRepository.getAccountByUsername(username, callback)
+		}
+		
+		
 
-
-exports.getAllAccounts = function(callback){
-	accountRepository.getAllAccounts(callback)
-}
-
-exports.createAccount = function(account, callback){
-	
-	// Validate the account.
-	const errors = accountValidator.getErrorsNewAccount(account)
-	
-	if(0 < errors.length){
-		callback(errors, null)
-		return
 	}
-	
-	accountRepository.createAccount(account, callback)
-	
 }
-
-exports.getAccountByUsername = function(username, callback){
-	accountRepository.getAccountByUsername(username, callback)
-}
-
