@@ -1,23 +1,25 @@
-const databaseFunctions = require('../data-access-layer/database-functions')
 
-//gör exports. likadant för alla databas funktioner så skickas dom vidare till presentaionlayer 
+module.exports = function(container){
+	return{
+		getAllMoviePosts:function(callback){
+			databaseFunctions.getAllMoviePosts(callback)
+		},
+		
+		postMoviePost:function(title, post, username, callback){
+			databaseFunctions.postMoivePost(title, post, username, callback)
+		},
+		
+		getPostWithId:function(id, callback){
+			databaseFunctions.getPostWithId(id, callback)
+		},
+		
+		getCommentsWithId:function(id, callback){
+			databaseFunctions.getCommentsWithId(id, callback)
+		},
+		
+		commentOnPostWithId:function(id, comment, username, callback){
+			databaseFunctions.commentOnPostWithId(id,comment, username, callback)
+		}
 
-exports.getAllMoviePosts = function(callback){
-	databaseFunctions.getAllMoviePosts(callback)
-}
-
-exports.postMoviePost = function(title, post, username, callback){
-	databaseFunctions.postMoivePost(title, post, username, callback)
-}
-
-exports.getPostWithId = function(id, callback){
-	databaseFunctions.getPostWithId(id, callback)
-}
-
-exports.getCommentsWithId = function(id, callback){
-	databaseFunctions.getCommentsWithId(id, callback)
-}
-
-exports.commentOnPostWithId = function(id, callback){
-	databaseFunctions.commentOnPostWithId(id, callback)
+	}
 }
