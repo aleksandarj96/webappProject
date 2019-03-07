@@ -1,64 +1,51 @@
 <style>
+	.box {
+		width: 100%
+	}
 
-.box{
-	width: 100%
-}
+	.section {
+		padding: 0%
+	}
 
-.section{
-	padding: 0%
-}
+	.card {
+		padding: 1%;
+	}
 
-.card {
-	padding: 1%;
-}
+	.right {
+		float: right;
+	}
 
-.right{
-	float: right;
-}
-
-.left{
-	float: left;
-	font-size: 200%;
-}
-
+	.left {
+		float: left;
+		font-size: 200%;
+	}
 </style>
 
-	<section class="section">
-
+{{#if login}}
+<section class="section">
 	<a class="button is-primary is-large" href="/new-post">New post</a>
-
-
-	</section>
+</section>
+{{/if}}
 
 <body>
 
-<br>
-
-{{#each movieposts}}
-
-<a href="/post/{{id}}">
-	<div class="card" id="card-class">
-	
-	<span class="left"><strong>{{title}}</strong></span>
-	<span class="right">Tag: Question</span>
 	<br>
-	<br>
-	<br>	
-	<p><small>Posted by {{username}} at date</small></p>
 
-</div>
-</a>
+	{{#each movieposts}}
 
-{{/each}}
+	<a href="/post/{{id}}">
+		<div class="card" id="card-class">
+
+			<span class="left"><strong>{{title}}</strong></span>
+			<span class="right">Tag: Question</span>
+			<br>
+			<br>
+			<br>
+			<p><small>Posted by {{username}} at date</small></p>
+
+		</div>
+	</a>
+
+	{{/each}}
 
 </body>
-
-
-
-
-
-
-
-
-
-

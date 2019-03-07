@@ -35,13 +35,12 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountValidator.validateAccount(username, password, function (err, account) {
-			console.log("apa" + account)
+			
 			if (account == null) {
-				console.log(err)
+				
 				res.redirect("/accounts/sign-in")
 			}
 			else {
-				console.log("apa2")
 				req.session.account = account
 				req.session.login = true
 				const model = {
@@ -56,7 +55,6 @@ module.exports = function ({ accountManager, accountValidator }) {
 
 	router.get("/", function (request, response) {
 		accountManager.getAllAccounts(function (errors, accounts) {
-			console.log(errors, accounts)
 			const model = {
 				errors: errors,
 				accounts: accounts

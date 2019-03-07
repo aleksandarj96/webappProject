@@ -1,5 +1,5 @@
-const db = require('./db')
-module.exports = function(container){
+
+module.exports = function({db}){
 	return{
 	getAllAccounts: function(callback){
 	

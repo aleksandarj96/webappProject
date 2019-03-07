@@ -1,7 +1,7 @@
 const express = require('express')
 
 
-module.exports = function ({ databaseFunctions }) {
+module.exports = function ({databaseManager}) {
 	const router = express.Router()
 	
 	router.use(express.urlencoded({ extended: false }))
@@ -20,11 +20,11 @@ module.exports = function ({ databaseFunctions }) {
 	})
 
 	router.get("/movies", function (request, response) {
-		databaseFunctions.getAllMoviePosts(function (errors, movieposts) {
-			console.log(errors, movieposts)
+		databaseManager.getAllMoviePosts(function (errors, movieposts) {
 			const model = {
 				errors: errors,
-				movieposts: movieposts
+				movieposts: movieposts,
+				login: request.session.login
 			}
 			response.render("movies.hbs", model)
 		})
@@ -38,14 +38,14 @@ module.exports = function ({ databaseFunctions }) {
 
 		const id = request.params.id
 
-		databaseFunctions.getPostWithId(id, function (error, movieposts) {
-			databaseFunctions.getCommentsWithId(id, function (error, comments) {
+		databaseManager.getPostWithId(id, function (error, movieposts) {
+			databaseManager.getCommentsWithId(id, function (error, comments) {
 				const model = {
 					error: error,
 					movieposts: movieposts,
 					comments: comments
 				}
-				response.render("post.hbs", model)
+				response.render("post/:id.hbs", model)
 			})
 		})
 	})
@@ -54,8 +54,8 @@ module.exports = function ({ databaseFunctions }) {
 
 		const id = request.params.id
 		const comment = request.body.comment
-		databaseFunctions.getPostWithId(id, function (error, movieposts) {
-			databaseFunctions.commentOnPostWithId(id, comment, "elle", function (error) {
+		databaseManager.getPostWithId(id, function (error, movieposts) {
+			databaseManager.commentOnPostWithId(id, comment, request.session.account.username, function (error) {
 				const model = {
 					error: error,
 					movieposts: movieposts
@@ -69,11 +69,10 @@ module.exports = function ({ databaseFunctions }) {
 
 		const title = request.body.title
 		const post = request.body.post
-		const username = "Biff_Aleks96"
+		const username = request.session.account.username
 
-		databaseFunctions.postMoviePost(title, post, username, function (error) {
+		databaseManager.postMoviePost(title, post, username, function (error) {
 		})
-		console.log(title, post, username)
 		response.render("new-post.hbs")
 	});
 

@@ -1,4 +1,4 @@
-module.exports = function (container) {
+module.exports = function ({db}) {
 	return {
 		getAllMoviePosts: function (callback) {
 
@@ -21,7 +21,6 @@ module.exports = function (container) {
 
 			db.query(query, values, function (error, results) {
 				if (error) throw error;
-				console.log("Inserted: ", values);
 				//callback([], values)
 			})
 		},
@@ -32,18 +31,16 @@ module.exports = function (container) {
 
 			db.query(query, id, function (error, results) {
 				if (error) throw error;
-				console.log("ID: ", results);
 				callback([], results)
 			})
 		},
 
 		getCommentsWithId: function (id, callback) {
 
-			const query = "SELECT * FROM comments WHERE postId = " + id + ""
+			const query = "SELECT * FROM comments WHERE postId = ?"
 
-			db.query(query, function (error, results) {
+			db.query(query, id, function (error, results) {
 				if (error) throw error;
-				console.log("COMMENT: ", results);
 				callback([], results)
 			})
 		},
@@ -55,7 +52,6 @@ module.exports = function (container) {
 
 			db.query(query, values, function (error, results) {
 				if (error) throw error;
-				console.log("COMMENT: ", results);
 				callback([], results)
 				//callback([], values)
 			})

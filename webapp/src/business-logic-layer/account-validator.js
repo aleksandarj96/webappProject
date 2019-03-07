@@ -1,7 +1,7 @@
 const MIN_USERNAME_LENGTH = 3
 const MAX_USERNAME_LENGTH = 10
 const bcrypt = require('bcryptjs')
-module.exports = function(container){
+module.exports = function({accountRepository}){
 	return{
 		getErrorsNewAccount:function(username, password){
 	

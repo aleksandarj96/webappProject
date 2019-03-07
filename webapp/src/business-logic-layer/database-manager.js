@@ -1,5 +1,5 @@
 
-module.exports = function(container){
+module.exports = function({databaseFunctions}){
 	return{
 		getAllMoviePosts:function(callback){
 			databaseFunctions.getAllMoviePosts(callback)
@@ -18,6 +18,9 @@ module.exports = function(container){
 		},
 		
 		commentOnPostWithId:function(id, comment, username, callback){
+			if(username == null){
+				callback(errors, null)
+			}
 			databaseFunctions.commentOnPostWithId(id,comment, username, callback)
 		}
 

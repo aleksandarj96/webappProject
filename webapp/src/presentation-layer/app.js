@@ -15,7 +15,7 @@ const databaseFunctions = require('../data-access-layer/database-functions')
 const db = require('../data-access-layer/db.js')
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
-
+const apiRouter = require('./routers/api_router')
 
 // Setup express-handlebars.
 app.set('views', path.join(__dirname, 'views'))
@@ -28,6 +28,7 @@ container.register("variousRouter", awilix.asFunction(variousRouter))
 container.register("accountManager", awilix.asFunction(accountManager))
 container.register("accountRouter", awilix.asFunction(accountRouter))
 container.register("accountValidator", awilix.asFunction(accountValidator))
+container.register("apiRouter", awilix.asFunction(apiRouter))
 
 const theAccountRouter = container.resolve('accountRouter')
 const theVariousRouter = container.resolve('variousRouter')
@@ -56,7 +57,7 @@ app.use(express.urlencoded({ extended: false }))
 // Attach all routers.
 app.use('/', theVariousRouter)
 app.use('/accounts', theAccountRouter)
-
+app.use('/api', apiRouter)
 // Start listening for incoming HTTP requests!
 app.listen(8080, function(){
 	console.log('Running on 8080!')
