@@ -35,9 +35,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountValidator.validateAccount(username, password, function (err, account) {
-			
 			if (account == null) {
-				
 				res.redirect("/accounts/sign-in")
 			}
 			else {

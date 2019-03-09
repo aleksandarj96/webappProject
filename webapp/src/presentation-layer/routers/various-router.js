@@ -31,7 +31,13 @@ module.exports = function ({databaseManager}) {
 	})
 
 	router.get("/new-post", function (request, response) {
-		response.render("new-post.hbs")
+		if(request.session.login == true){
+			response.redirect("new-post.hbs")
+		}
+		else{
+			response.redirect("/accounts/sign-in")
+		}
+		
 	})
 
 	router.get("/post/:id", function (request, response) {
