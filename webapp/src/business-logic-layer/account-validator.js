@@ -24,17 +24,16 @@ module.exports = function({accountRepository}){
 			const errors = []
 			accountRepository.checkIfExist(username, function(error, hash){
 				if(error.length){
-					console.log("Error finns inte i databasen")
 					callback(['databaseError'], null)
 				}
 				else{
 					bcrypt.compare(password, hash, function(bcryptError, result){
 						if(result){
-							console.log("Rätt lösenord")
+						
 							accountRepository.getAccountByUsername(username, callback)
 						}
 						else{
-							console.log("Fel lösenord")
+							
 							callback(['Wrong'], null)
 						}
 					})

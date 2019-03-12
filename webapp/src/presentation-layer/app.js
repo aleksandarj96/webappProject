@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({
 	extended: false
 }))
-
+app.use(bodyParser.json())
 app.use(expressSession({
 	secret: 'forum',
 	resave: false,
@@ -58,6 +58,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', theVariousRouter)
 app.use('/accounts', theAccountRouter)
 app.use('/api', apiRouter)
+
 // Start listening for incoming HTTP requests!
 app.listen(8080, function(){
 	console.log('Running on 8080!')

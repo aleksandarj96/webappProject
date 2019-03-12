@@ -7,7 +7,10 @@ module.exports = function ({databaseManager}) {
 	router.use(express.urlencoded({ extended: false }))
 
 	router.get("/", function (request, response) {
-		response.render("home.hbs")
+		const model = {
+			account: request.session.account
+		}
+		response.render("home.hbs", model)
 	})
 
 	router.get("/about", function (request, response) {
@@ -32,7 +35,7 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/new-post", function (request, response) {
 		if(request.session.login == true){
-			response.redirect("new-post.hbs")
+			response.render("new-post.hbs")
 		}
 		else{
 			response.redirect("/accounts/sign-in")
@@ -41,9 +44,7 @@ module.exports = function ({databaseManager}) {
 	})
 
 	router.get("/post/:id", function (request, response) {
-
 		const id = request.params.id
-
 		databaseManager.getPostWithId(id, function (error, movieposts) {
 			databaseManager.getCommentsWithId(id, function (error, comments) {
 				const model = {

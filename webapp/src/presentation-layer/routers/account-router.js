@@ -5,7 +5,14 @@ module.exports = function ({ accountManager, accountValidator }) {
 	const router = express.Router()
 
 	router.get("/sign-up", function (request, response) {
-		response.render("accounts-sign-up.hbs")
+		if(request.session.login == true){
+			response.render("home.hbs")
+		}
+		else{
+			response.render("accounts-sign-up.hbs")
+		}
+		
+		
 	})
 
 	router.get("/sign-in", function (request, response) {
