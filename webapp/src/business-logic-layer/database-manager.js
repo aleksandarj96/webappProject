@@ -5,14 +5,28 @@ module.exports = function({databaseFunctions}){
 			databaseFunctions.getAllMoviePosts(callback)
 		},
 		
-		postMoviePost:function(title, post, username, callback){
-			databaseFunctions.postMoivePost(title, post, username, callback)
+		postMoviePost:function(title, post, username, accountId, callback){
+			databaseFunctions.postMoivePost(title, post, username, accountId, callback)
+		},
+		deleteMoviePost:function(id, accountId, callback){
+			databaseFunctions.deleteMoviePost(id, accountId, errors)
+			
+		},
+		getPostWithMovieId:function(id, callback){
+			databaseFunctions.getPostWithMovieId(id, callback)
+		},
+
+		getPostWithAccountId:function(id, callback){
+			databaseFunctions.getPostWithAccountId(id, callback)
+		},
+
+		editMoviePost:function(post, id, title, callback){
+			databaseFunctions.editMoviePost(post, id, title, callback)
 		},
 		
-		getPostWithId:function(id, callback){
-			databaseFunctions.getPostWithId(id, callback)
+		deleteMoviePost:function( id, callback){
+			databaseFunctions.deleteMoviePost( id, callback)
 		},
-		
 		getCommentsWithId:function(id, callback){
 			databaseFunctions.getCommentsWithId(id, callback)
 		},

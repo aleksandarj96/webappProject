@@ -31,6 +31,7 @@ container.register("accountValidator", awilix.asFunction(accountValidator))
 container.register("apiRouter", awilix.asFunction(apiRouter))
 
 const theAccountRouter = container.resolve('accountRouter')
+const theApiRouter = container.resolve('apiRouter')
 const theVariousRouter = container.resolve('variousRouter')
 app.engine('hbs', expressHandlebars({
 	extname: 'hbs',
@@ -44,6 +45,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({
 	extended: false
 }))
+app.use(function(req, res, next){
+	res.setHeader("Access-Control-Allow-Origin", "*")
+	res.setHeader("Access-Control-Allow-Methods", "*")
+	res.setHeader("Access-Control-Allow-Headers", "*")
+	next()
+})
 app.use(bodyParser.json())
 app.use(expressSession({
 	secret: 'forum',
@@ -55,9 +62,10 @@ app.use(expressSession({
 app.use(express.urlencoded({ extended: false }))
 
 // Attach all routers.
+
+app.use('/api', theApiRouter)
 app.use('/', theVariousRouter)
 app.use('/accounts', theAccountRouter)
-app.use('/api', apiRouter)
 
 // Start listening for incoming HTTP requests!
 app.listen(8080, function(){

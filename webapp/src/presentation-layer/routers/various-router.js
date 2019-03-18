@@ -23,10 +23,10 @@ module.exports = function ({databaseManager}) {
 	})
 
 	router.get("/movies", function (request, response) {
-		databaseManager.getAllMoviePosts(function (errors, movieposts) {
+		databaseManager.getAllMoviePosts(function (errors, posts) {
 			const model = {
 				errors: errors,
-				movieposts: movieposts,
+				movieposts: posts,
 				login: request.session.login
 			}
 			response.render("movies.hbs", model)
@@ -45,14 +45,17 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/post/:id", function (request, response) {
 		const id = request.params.id
-		databaseManager.getPostWithId(id, function (error, movieposts) {
+		const date = new Date();
+		const current_hour = date.getHours();
+		databaseManager.getPostWithMovieId(id, function (error, posts) {
 			databaseManager.getCommentsWithId(id, function (error, comments) {
 				const model = {
 					error: error,
-					movieposts: movieposts,
+					time: current_hour,
+					movieposts: posts,
 					comments: comments
 				}
-				response.render("post/:id.hbs", model)
+				response.render("post.hbs", model)
 			})
 		})
 	})
@@ -61,11 +64,11 @@ module.exports = function ({databaseManager}) {
 
 		const id = request.params.id
 		const comment = request.body.comment
-		databaseManager.getPostWithId(id, function (error, movieposts) {
+		databaseManager.getPostWithMovieId(id, function (error, posts) {
 			databaseManager.commentOnPostWithId(id, comment, request.session.account.username, function (error) {
 				const model = {
 					error: error,
-					movieposts: movieposts
+					movieposts: posts
 				}
 				response.render("post.hbs", model)
 			})
@@ -77,8 +80,9 @@ module.exports = function ({databaseManager}) {
 		const title = request.body.title
 		const post = request.body.post
 		const username = request.session.account.username
+		const accountId = request.session.account.id
 
-		databaseManager.postMoviePost(title, post, username, function (error) {
+		databaseManager.postMoviePost(title, post, username, accountId, function (error) {
 		})
 		response.render("new-post.hbs")
 	});

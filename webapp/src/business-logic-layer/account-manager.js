@@ -10,7 +10,7 @@ module.exports = function({accountRepository, accountValidator}){
 			const errors = accountValidator.getErrorsNewAccount(username, password)
 			if(0 < errors.length){
 				console.log(errors)
-				callback(errors, null)
+				callback(errors)
 			}
 			bcrypt.hash(password, saltRounds, function (err, hash) {
 				accountRepository.createAccount(username, hash, callback)

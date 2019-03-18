@@ -3,7 +3,7 @@ CREATE TABLE accounts (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(50) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	CONSTRAINT usernameUnique UNIQUE (username),
+	CONSTRAINT usernameUnique UNIQUE (username)
 
 );
 
@@ -11,15 +11,18 @@ CREATE TABLE movieposts (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(50) NOT NULL, 
 	post VARCHAR(255) NOT NULL, 
-	username VARCHAR(50) NOT NULL
+	username VARCHAR(50) NOT NULL,
+	accountId INT UNSIGNED,
+	FOREIGN KEY(accountId) REFERENCES accounts(id)
 );
+
 
 CREATE TABLE comments (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	comment VARCHAR(255) NOT NULL,
 	postid INT UNSIGNED NOT NULL,
 	username VARCHAR(50) NOT NULL,
-	FOREIGN KEY (postId) REFERENCES movieposts(id),
+	FOREIGN KEY (postid) REFERENCES movieposts(id),
 	FOREIGN KEY (username) REFERENCES accounts(username)
 );
 
