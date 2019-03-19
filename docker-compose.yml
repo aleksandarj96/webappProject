@@ -22,12 +22,4 @@ services:
     ports:
       - '6767:6767'
   
-  nginx:
-    build: ./nginx 
-    volumes:
-      - "./nginx/public:/nginx/public"
-    ports:
-      3000:80
-    environment:
-      NGINX_HOST=foobar.com
-      NGINX_PORT=80
+  

@@ -35,13 +35,13 @@ module.exports = function({db}){
 		const values = [username]
 		db.query(query, values, function(error, password){
 			if(error){
-				callback(['databaseError'], null)
+				callback([], error)
 			}else{
 				if(password.length > 0){
 					callback([],password[0].password)
 				}
 				else{
-					callback(['username doesnt exist'],null)
+					callback(['username doesnt exist'])
 				}
 				
 			}

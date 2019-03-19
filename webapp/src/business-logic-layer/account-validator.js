@@ -6,7 +6,6 @@ module.exports = function({accountRepository}){
 		getErrorsNewAccount:function(username, password){
 	
 			const errors = []
-			// Validate username.
 			if(!username){
 				errors.push("usernameMissing")
 			}else if(username.length < MIN_USERNAME_LENGTH){

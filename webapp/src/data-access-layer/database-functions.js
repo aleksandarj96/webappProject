@@ -50,7 +50,9 @@ module.exports = function ({db}) {
 			const query = "SELECT * FROM movieposts WHERE id = ?"
 
 			db.query(query, id, function (error, results) {
-				if (error) throw error;
+				if (error){
+					callback([], error)
+				} 
 				callback([], results)
 			})
 		},

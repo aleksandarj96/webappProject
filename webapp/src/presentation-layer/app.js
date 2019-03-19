@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({
 	extended: false
 }))
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
 	res.setHeader("Access-Control-Allow-Origin", "*")
 	res.setHeader("Access-Control-Allow-Methods", "*")
 	res.setHeader("Access-Control-Allow-Headers", "*")
@@ -55,11 +55,17 @@ app.use(bodyParser.json())
 app.use(expressSession({
 	secret: 'forum',
 	resave: false,
-	store: new redisStore({ host: 'redis', port: 6379 ,ttl :  260}),
-    saveUninitialized: false,
+	store: new redisStore({
+		host: 'redis',
+		port: 6379,
+		ttl: 260
+	}),
+	saveUninitialized: false,
 }))
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({
+	extended: false
+}))
 
 // Attach all routers.
 
@@ -68,6 +74,6 @@ app.use('/', theVariousRouter)
 app.use('/accounts', theAccountRouter)
 
 // Start listening for incoming HTTP requests!
-app.listen(8080, function(){
+app.listen(8080, function () {
 	console.log('Running on 8080!')
 })
