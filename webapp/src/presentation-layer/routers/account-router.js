@@ -5,14 +5,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 	const router = express.Router()
 
 	router.get("/sign-up", function (request, response) {
-		if(request.session.login == true){
-			response.render("home.hbs")
-		}
-		else{
-			response.render("accounts-sign-up.hbs")
-		}
-		
-		
+		response.render("accounts-sign-up.hbs")
 	})
 
 	router.get("/sign-in", function (request, response) {
@@ -35,7 +28,13 @@ module.exports = function ({ accountManager, accountValidator }) {
 				errors: errors,
 				accounts: accounts
 			}
-			res.render("accounts-sign-in.hbs", model)
+			if (errors.length) {
+				res.render("accounts-sign-up.hbs", model)
+				console.log("IF SATS")
+			} else {
+				res.render("accounts-sign-in.hbs", model)
+				console.log("ELSE SATS")
+			}
 		})
 	})
 	router.post("/sign-in", function (req, res, next) {
@@ -49,9 +48,9 @@ module.exports = function ({ accountManager, accountValidator }) {
 				req.session.account = account
 				req.session.login = true
 				const model = {
-					account: account
+					account: account,
+					login: req.session.login
 				}
-
 				res.render("home.hbs", model)
 			}
 		})
@@ -62,7 +61,8 @@ module.exports = function ({ accountManager, accountValidator }) {
 		accountManager.getAllAccounts(function (errors, accounts) {
 			const model = {
 				errors: errors,
-				accounts: accounts
+				accounts: accounts,
+				login: request.session.login
 			}
 			response.render("accounts-list-all.hbs", model)
 		})
@@ -75,7 +75,8 @@ module.exports = function ({ accountManager, accountValidator }) {
 		accountManager.getAccountByUsername(username, function (errors, account) {
 			const model = {
 				errors: errors,
-				account: account
+				account: account,
+				login: request.session.login
 			}
 			response.render("accounts-show-one.hbs", model)
 		})

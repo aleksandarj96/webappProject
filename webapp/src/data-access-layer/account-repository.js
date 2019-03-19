@@ -41,7 +41,7 @@ module.exports = function({db}){
 					callback([],password[0].password)
 				}
 				else{
-					callback(['username doesnt exist'],null)
+					callback(['databaseError'],null)
 				}
 				
 			}
@@ -82,7 +82,7 @@ module.exports = function({db}){
 		
 		db.query(query, values, function(error, results){
 			if(error){
-				callback(['databaseError'], null)
+				callback([], error)
 			}else{
 				callback([], results.insertId)
 			}

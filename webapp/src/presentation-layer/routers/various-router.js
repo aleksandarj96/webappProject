@@ -8,18 +8,26 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/", function (request, response) {
 		const model = {
-			account: request.session.account
+			account: request.session.account,
+			login: request.session.login
 		}
 		response.render("home.hbs", model)
 	})
 
 	router.get("/about", function (request, response) {
-		response.render("about.hbs")
+		response.render("about.hbs", {login: request.session.login})
 	})
 
 	router.get("/contact", function (request, response) {
-		response.render("contact.hbs")
+		response.render("contact.hbs", {login: request.session.login})
 
+	})
+
+
+	router.get("/signedOut", function(request, response){
+		request.session.destroy()
+
+		response.render("signedOut.hbs")
 	})
 
 	router.get("/movies", function (request, response) {
@@ -35,7 +43,7 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/new-post", function (request, response) {
 		if(request.session.login == true){
-			response.render("new-post.hbs")
+			response.render("new-post.hbs", {login: request.session.login})
 		}
 		else{
 			response.redirect("/accounts/sign-in")
@@ -53,7 +61,8 @@ module.exports = function ({databaseManager}) {
 					error: error,
 					time: current_hour,
 					movieposts: posts,
-					comments: comments
+					comments: comments,
+					login: request.session.login
 				}
 				response.render("post.hbs", model)
 			})
@@ -68,7 +77,8 @@ module.exports = function ({databaseManager}) {
 			databaseManager.commentOnPostWithId(id, comment, request.session.account.username, function (error) {
 				const model = {
 					error: error,
-					movieposts: posts
+					movieposts: posts,
+					login: request.session.login
 				}
 				response.render("post.hbs", model)
 			})
@@ -84,7 +94,7 @@ module.exports = function ({databaseManager}) {
 
 		databaseManager.postMoviePost(title, post, username, accountId, function (error) {
 		})
-		response.render("new-post.hbs")
+		response.render("new-post.hbs", {login: request.session.login})
 	});
 
 

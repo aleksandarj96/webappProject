@@ -16,6 +16,15 @@ input[type=text], input[type=password] {
 	<h2>Sign in</h2>
 	<p>Sign in using the form below.</p>
 
+	{{#if errors.length}}
+	<p>Oh no, something went wrong:</p>
+	<ul>
+		{{#each errors}}
+			<li>{{this}}</li>
+		{{/each}}
+	</ul>
+	{{/if}}
+
 </div>
 <div id="sign-in-page">
 <form action="/accounts/sign-in" method="POST">
