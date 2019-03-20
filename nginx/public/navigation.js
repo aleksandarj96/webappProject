@@ -40,20 +40,25 @@ function changePage(uri){
 	}
 	else if(uri == "/posts"){
 		id = "show-posts-page"
-		updateShowMoviePage()
+		updateShowPostPage()
 	}
 	else if(uri == "/your-posts"){
-		id = "your-post-page"
-		getYourMovies()
+		id = "your-posts-page"
+		getYourPost()
 	}
 	else if (uri.startsWith("/your-post/")){
 		const postId = parseInt(uri.split("/")[2])
 		id = "edit-post-page"
-		updateEditMoviePage(postId)
+		updateEditPostPage(postId)
 	}
 	else if (uri.startsWith("/delete-your-post/")){
 		const postId = parseInt(uri.split("/")[2])
-		deleteMoviePage(postId)
+		deletePostPage(postId)
+		id = "your-posts-page"
+	}
+	else if (uri.startsWith("/create-post")){
+		id = "create-post-page"
+		
 	}
 	
 	document.getElementById(id).classList.add("current-page")

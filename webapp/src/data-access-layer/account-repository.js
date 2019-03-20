@@ -42,13 +42,24 @@ module.exports = function({db}){
 				}
 				else{
 					callback(['username doesnt exist'], null)
-				}
-				
+				}	
 			}
 	
 		})
 	},
-	
+	getUsername:function(username, callback){
+		const query = `SELECT * FROM accounts WHERE username = ?`
+		const values = [username]
+
+		db.query(query, values, function(error, username){
+			if(error){
+				callback(['dbError'], null)
+			}
+			else{
+				callback([], username[0])
+			}
+		})
+	},
 	getAccountByUsername:function(username, callback){
 		
 		const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`

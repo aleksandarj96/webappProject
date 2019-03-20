@@ -7,7 +7,7 @@ module.exports = function ({db}) {
 
 			db.query(query, values, function (error, posts) {
 				if (error) {
-					callback(['databaseError'], null)
+					callback(['database Error'], null)
 				} else {
 					callback([], posts)
 				}

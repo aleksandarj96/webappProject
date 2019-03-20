@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			console.log(response)
 		}).catch(function (error) {
 			console.log(error)
+			alert('Bad credentials')
 		})
 		changePage("/sign-in")
 	})

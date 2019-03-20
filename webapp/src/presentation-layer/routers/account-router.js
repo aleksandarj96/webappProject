@@ -31,22 +31,27 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, accounts) {
-			const model = {
-				errors: errors,
-				accounts: accounts
+			if(errors.length){
+				const model = {
+					errors: errors
+				}
+				res.render("accounts-sign-up.hbs", model)
 			}
-			res.render("accounts-sign-in.hbs", model)
+			else{
+				res.redirect("/accounts/sign-in")
+			}
+			
 		})
 	})
 	router.post("/sign-in", function (req, res, next) {
 		const username = req.body.username
 		const password = req.body.password
-		accountValidator.validateAccount(username, password, function (error, account) {
-			if (error.length) {
+		accountValidator.validateAccount(username, password, function (errors, account) {
+			if (errors.length) {
 				const model = {
-					error: error,
+					errors: errors,
 				}
-				res.render("/accounts/sign-in.hbs", model)
+				res.render("accounts-sign-in.hbs", model)
 			}
 			else {
 				req.session.account = account

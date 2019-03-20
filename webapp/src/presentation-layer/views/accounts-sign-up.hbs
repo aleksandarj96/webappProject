@@ -15,7 +15,14 @@ input[type=text], input[type=password] {
 
 	<h2>Sign up</h2>
 	<p>Create a new account using the form below.</p>
-
+	{{#if errors.length}}
+	<p>Oh no, something went wrong:</p>
+	<ul>
+		{{#each errors}}
+			<li>{{this}}</li>
+		{{/each}}
+	</ul>
+	{{/if}}
 </div>
 
 <form action="/accounts/sign-up"  method="POST">
@@ -25,9 +32,6 @@ input[type=text], input[type=password] {
 
 	<label for="password"><b>Password</b></label>
 	<input type="password" placeholder="Enter password" name="password" required>
-
-	<label for="repeat-password"><b>Repeat password</b></label>
-	<input type="password" placeholder="Repeat password" name="repeat-password" id="repeat-password" required>
 
 	<button type="submit" class="button is-primary">Sign up!</button>
 
