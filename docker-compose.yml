@@ -21,9 +21,7 @@ services:
     build: ./redis
     ports:
       - '6767:6767'
-  
-<<<<<<< HEAD
-=======
+
   nginx:
     build: ./nginx 
     volumes:
@@ -31,4 +29,3 @@ services:
     ports:
      - "3000:80"
     
->>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794
