@@ -24,10 +24,13 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, accounts) {
-			const model = {
-				errors: errors,
-				accounts: accounts
+			if(errors.length){
+				const model = {
+					errors: errors
+				}
+				res.render("accounts-sign-up.hbs", model)
 			}
+<<<<<<< HEAD
 			if (errors.length) {
 				res.render("accounts-sign-up.hbs", model)
 				console.log("IF SATS")
@@ -35,14 +38,23 @@ module.exports = function ({ accountManager, accountValidator }) {
 				res.render("accounts-sign-in.hbs", model)
 				console.log("ELSE SATS")
 			}
+=======
+			else{
+				res.redirect("/accounts/sign-in")
+			}
+			
+>>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794
 		})
 	})
 	router.post("/sign-in", function (req, res, next) {
 		const username = req.body.username
 		const password = req.body.password
-		accountValidator.validateAccount(username, password, function (err, account) {
-			if (account == null) {
-				res.redirect("/accounts/sign-in")
+		accountValidator.validateAccount(username, password, function (errors, account) {
+			if (errors.length) {
+				const model = {
+					errors: errors,
+				}
+				res.render("accounts-sign-in.hbs", model)
 			}
 			else {
 				req.session.account = account

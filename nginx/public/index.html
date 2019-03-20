@@ -15,17 +15,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>The Community</title>
+	<title>BackFlash</title>
 	<link rel="stylesheet" type="text/css" href="bulma.min.css">
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<script src="navigation.js"></script>
 	<script src="sign-up-page.js"></script>
 	<script src="sign-in-page.js"></script>
-	<script src="create-movie-page.js"></script>
-	<script src="your-movies-page.js"></script>
-	<script src="show-movie-page.js"></script>
-	<script src="edit-movie-page.js"></script>
-	<script src="delete-movie.js"></script>
+	<script src="your-posts-page.js"></script>
+	<script src="show-posts-page.js"></script>
+	<script src="edit-post-page.js"></script>
+	<script src="delete-post.js"></script>
+	<script src="create-post-page.js"></script>
 	<script src="jwt-decode.js"></script>
 </head>
 
@@ -33,7 +33,7 @@
 
 	<div id="entire-page">
 		<header class="is-size-1 has-text-centered">
-			The Community
+			BackFlash
 		</header>
 		<nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
 
@@ -47,9 +47,9 @@
 			<div id="navbar" class="navbar-menu is-active">
 				<div class="navbar-start">
 					<a class="navbar-item" href="/">Home</a>
-					<li class="show-if-logged-in"><a class="navbar-item" href="/movies">Movies</a></li>
-					<li class="show-if-logged-in"><a class="navbar-item" href="/your-movies">Your Movies</a></li>
-					<li class="show-if-logged-in"><a class="navbar-item" href="/your-movies">Create a moviepost</p></li>
+					<li class="show-if-logged-in"><a class="navbar-item" href="/posts">Posts</a></li>
+					<li class="show-if-logged-in"><a class="navbar-item" href="/your-posts">Your posts</a></li>
+					<li class="show-if-logged-in"><a class="navbar-item" href="/create-post">Create a post</p></li>
 					<li class="show-if-logged-in"><p id="username"></p></li>
 				</div>
 				<div class="navbar-end">
@@ -96,24 +96,38 @@
 
 			</form>
 		</div>
-		<div class="card" id="show-movie-page">
+		<div class="card" id="show-posts-page">
 				<ul>
 
 				</ul>	
 	
 		</div>
-		<div class="card" id="your-movie-page">
+		<div class="card" id="create-post-page">
+			<form>
+				<hr>
+				<label for="Title"><b>Title</b></label>
+				<input type="text" placeholder="Enter Title" id="post-title" required>
+
+				<label for="Post"><b>Post</b></label>
+				<input type="text" placeholder="Enter Post" id="post-content" required>
+
+				<button type="submit" class="button is-primary">Create</button>
+
+				<hr>
+			</form>	
+	    </div>
+		<div class="card" id="your-posts-page">
 				<ul>
 
 				</ul>
 	
 		</div>
-		<div class="card" id="edit-movie-page">
+		<div class="card" id="edit-post-page">
 				<h1>Edit Moviepost!</h1>
 				<form>
 					<div>
-						Title: <input type ="text" id="edit-movie-title">
-						content: <input type="text" id="edit-movie-post">
+						Title: <input type ="text" id="edit-post-title">
+						content: <input type="text" id="edit-post-content">
 						<input type="submit" value="Update">
 					</div>
 				</form>

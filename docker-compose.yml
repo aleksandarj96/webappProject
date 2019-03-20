@@ -22,3 +22,13 @@ services:
     ports:
       - '6767:6767'
   
+<<<<<<< HEAD
+=======
+  nginx:
+    build: ./nginx 
+    volumes:
+      - "./nginx/public:/usr/share/nginx/html"
+    ports:
+     - "3000:80"
+    
+>>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794

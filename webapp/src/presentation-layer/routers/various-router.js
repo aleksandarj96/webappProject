@@ -23,6 +23,7 @@ module.exports = function ({databaseManager}) {
 
 	})
 
+<<<<<<< HEAD
 
 	router.get("/signedOut", function(request, response){
 		request.session.destroy()
@@ -32,6 +33,10 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/movies", function (request, response) {
 		databaseManager.getAllMoviePosts(function (errors, posts) {
+=======
+	router.get("/posts", function (request, response) {
+		databaseManager.getAllPosts(function (errors, posts) {
+>>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794
 			const model = {
 				errors: errors,
 				movieposts: posts,
@@ -55,7 +60,7 @@ module.exports = function ({databaseManager}) {
 		const id = request.params.id
 		const date = new Date();
 		const current_hour = date.getHours();
-		databaseManager.getPostWithMovieId(id, function (error, posts) {
+		databaseManager.getPostWithId(id, function (error, posts) {
 			databaseManager.getCommentsWithId(id, function (error, comments) {
 				const model = {
 					error: error,
@@ -73,7 +78,7 @@ module.exports = function ({databaseManager}) {
 
 		const id = request.params.id
 		const comment = request.body.comment
-		databaseManager.getPostWithMovieId(id, function (error, posts) {
+		databaseManager.getPostWithId(id, function (error, posts) {
 			databaseManager.commentOnPostWithId(id, comment, request.session.account.username, function (error) {
 				const model = {
 					error: error,
@@ -92,7 +97,7 @@ module.exports = function ({databaseManager}) {
 		const username = request.session.account.username
 		const accountId = request.session.account.id
 
-		databaseManager.postMoviePost(title, post, username, accountId, function (error) {
+		databaseManager.createPost(title, post, username, accountId, function (error) {
 		})
 		response.render("new-post.hbs", {login: request.session.login})
 	});

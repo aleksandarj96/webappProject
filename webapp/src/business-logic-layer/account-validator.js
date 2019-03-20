@@ -5,9 +5,7 @@ const bcrypt = require('bcryptjs')
 module.exports = function({accountRepository}){
 	return{
 		getErrorsNewAccount:function(username, password){
-	
 			const errors = []
-			// Validate username.
 			if(!username){
 				errors.push("usernameMissing")
 				console.log("username missing")
@@ -30,7 +28,7 @@ module.exports = function({accountRepository}){
 		validateAccount:function(username, password, callback){
 			accountRepository.checkIfExist(username, function(error, hash){
 				if(error.length){
-					callback(['databaseError'], null)
+					callback(error, null)
 				}
 				else{
 					bcrypt.compare(password, hash, function(bcryptError, result){
@@ -38,7 +36,7 @@ module.exports = function({accountRepository}){
 							accountRepository.getAccountByUsername(username, callback)
 						}
 						else{
-							callback(['Wrong'], null)
+							callback(['Wrong credentials'], null)
 						}
 					})
 				}

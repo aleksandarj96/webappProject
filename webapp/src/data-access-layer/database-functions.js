@@ -1,56 +1,58 @@
 module.exports = function ({db}) {
 	return {
-		getAllMoviePosts: function (callback) {
+		getAllPosts: function (callback) {
 
 			const query = "SELECT * FROM movieposts"
 			const values = []
 
-			db.query(query, values, function (error, movieposts) {
+			db.query(query, values, function (error, posts) {
 				if (error) {
-					callback(['databaseError'], null)
+					callback(['database Error'], null)
 				} else {
-					callback([], movieposts)
+					callback([], posts)
 				}
 			})
 		},
 
-		postMoivePost: function (title, post, username, accountId) {
+		createPost: function (title, post, username, accountId) {
 
 			const query = "INSERT INTO movieposts (title, post, username, accountId) VALUES (?,?,?,?)"
 			const values = [title, post, username, accountId]
 
-			db.query(query, values, function (error, results) {
-				if (error) throw error;
-				//callback([], values)
+			db.query(query, values, function (error) {
+				if (error){
+					callback(["dbError"])
+				}
+				
 			})
 		},
-		editMoviePost: function (post, id, title, callback){
+		editPost: function (post, id, title, callback){
 			const query = "UPDATE movieposts SET post = ?, title = ? WHERE id = ?"
 			const values = [post, title, id]
 			db.query(query, values, function(error){
 				if(error){
-					callback(["dbError"], null)
+					callback(["dbError"])
 				}
 			})
 		},
 
-		deleteMoviePost: function ( id, callback) {
+		deletePost: function ( id, callback) {
 			const query = "DELETE FROM movieposts WHERE id = ?"
 			const values = [id]
 			db.query(query, values, function (error) {
 				if (error) {
-					callback(["Error"])
-				} else {
-					callback([])
-				}
+					callback(["database error"])
+				} 
 			})
 		},
-		getPostWithMovieId: function (id, callback) {
+		getPostWithId: function (id, callback) {
 
 			const query = "SELECT * FROM movieposts WHERE id = ?"
 
 			db.query(query, id, function (error, results) {
-				if (error) throw error;
+				if (error){
+					callback(["database error"], null)
+				} 
 				callback([], results)
 			})
 		},
@@ -60,7 +62,9 @@ module.exports = function ({db}) {
 			const query = "SELECT * FROM movieposts WHERE accountId = ?"
 
 			db.query(query, id, function (error, results) {
-				if (error) throw error;
+				if (error){
+					callback(["database error"], null)
+				}
 				callback([], results)
 			})
 		},
@@ -71,7 +75,9 @@ module.exports = function ({db}) {
 			const query = "SELECT * FROM comments WHERE postId = ?"
 
 			db.query(query, id, function (error, results) {
-				if (error) throw error;
+				if (error){
+					callback(["database error"], null)
+				}
 				callback([], results)
 			})
 		},
@@ -82,13 +88,12 @@ module.exports = function ({db}) {
 			const query = "INSERT INTO comments (comment, postId, username) VALUES (?,?,?)"
 			const values = [comment, id, username]
 
-			db.query(query, values, function (error, results) {
-				if (error) throw error;
-				callback([], results)
-				//callback([], values)
+			db.query(query, values, function (error) {
+				if (error){
+					callback(["database error"])
+				}
 			})
 		}
 
 	}
 }
-//lägg in alla databas funktioner här så skickas dom till businesss logic layer

@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		}).catch(function (error) {
 			console.log(error)
+			alert('Wrong username or password')
 		})
 
 	})

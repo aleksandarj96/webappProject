@@ -38,22 +38,27 @@ function changePage(uri){
 	}else if(uri == "/sign-in"){
 		id = "sign-in-page"
 	}
-	else if(uri == "/movies"){
-		id = "show-movie-page"
-		updateShowMoviePage()
+	else if(uri == "/posts"){
+		id = "show-posts-page"
+		updateShowPostPage()
 	}
-	else if(uri == "/your-movies"){
-		id = "your-movie-page"
-		getYourMovies()
+	else if(uri == "/your-posts"){
+		id = "your-posts-page"
+		getYourPost()
 	}
-	else if (uri.startsWith("/your-movie/")){
-		const movieId = parseInt(uri.split("/")[2])
-		id = "edit-movie-page"
-		updateEditMoviePage(movieId)
+	else if (uri.startsWith("/your-post/")){
+		const postId = parseInt(uri.split("/")[2])
+		id = "edit-post-page"
+		updateEditPostPage(postId)
 	}
-	else if (uri.startsWith("/delete-your-movie/")){
-		const movieId = parseInt(uri.split("/")[2])
-		deleteMoviePage(movieId)
+	else if (uri.startsWith("/delete-your-post/")){
+		const postId = parseInt(uri.split("/")[2])
+		deletePostPage(postId)
+		id = "your-posts-page"
+	}
+	else if (uri.startsWith("/create-post")){
+		id = "create-post-page"
+		
 	}
 	
 	document.getElementById(id).classList.add("current-page")

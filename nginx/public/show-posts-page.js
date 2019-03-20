@@ -1,22 +1,23 @@
-function updateShowMoviePage(){
+function updateShowPostPage(){
 	
-	fetch("http://192.168.99.100:8080/api/movies", {
+	fetch("http://192.168.99.100:8080/api/posts", {
 		method: "GET",
 		headers: {
 			"Authorization": "Bearer "+accessToken
 		},
 	}).then(function(response){
 		return response.json()
-	}).then(function(movieposts){
-		const ul = document.querySelector("#show-movie-page ul")
+	}).then(function(posts){
+		const ul = document.querySelector("#show-posts-page ul")
 		ul.innerText = ""
-		for(const movies of movieposts){
+		for(const post of posts){
 			const li = document.createElement("li")
-			li.innerText = "Post title: "+ movies.title
+			li.innerText = "Post title: "+ post.title
 			ul.appendChild(li)
 		}		
 	}).catch(function(error){
 		console.log(error)
+		alert(error)
 	})
 	
 }
