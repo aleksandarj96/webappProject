@@ -7,12 +7,12 @@ function updateShowMoviePage(){
 		},
 	}).then(function(response){
 		return response.json()
-	}).then(function(movieposts){
+	}).then(function(posts){
 		const ul = document.querySelector("#show-movie-page ul")
 		ul.innerText = ""
-		for(const movies of movieposts){
+		for(const post of posts){
 			const li = document.createElement("li")
-			li.innerText = "Post title: "+ movies.title
+			li.innerText = "Post title: "+ post.title
 			ul.appendChild(li)
 		}		
 	}).catch(function(error){

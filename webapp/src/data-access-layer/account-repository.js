@@ -15,7 +15,7 @@ module.exports = function({db}){
 		})
 		
 	},
-
+/*
 	getAllPasswords:function(callback){
 		
 		const query = `SELECT * FROM accounts ORDER BY username`
@@ -29,7 +29,7 @@ module.exports = function({db}){
 			}
 		})
 		
-	},
+	},*/
 	checkIfExist:function(username, callback){
 		const query = `SELECT password FROM accounts WHERE username = ? `
 		const values = [username]
@@ -41,7 +41,7 @@ module.exports = function({db}){
 					callback([],password[0].password)
 				}
 				else{
-					callback(['username doesnt exist'])
+					callback(['username doesnt exist'], null)
 				}
 				
 			}
@@ -49,32 +49,21 @@ module.exports = function({db}){
 		})
 	},
 	
-	/*
-		Retrieves the account with the given username.
-		Possible errors: databaseError
-		Success value: The fetched account, or null if no account has that username.
-	*/
 	getAccountByUsername:function(username, callback){
 		
 		const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
 		const values = [username]
 		
-		db.query(query, values, function(error, accounts){
+		db.query(query, values, function(error, account){
 			if(error){
-				callback(['databaseError'], null)
+				callback(["error"] , null)
 			}else{
-				callback([], accounts[0])
+				callback([], account[0])
 			}
 		})
 		
 	},
-	
-	/*
-		Creates a new account.
-		account: {username: "The username", password: "The password"}
-		Possible errors: databaseError, usernameTaken
-		Success value: The id of the new account.
-	*/
+
 	createAccount:function(username, password, callback){
 		
 		const query = `INSERT INTO accounts (username, password) VALUES (?, ?)`

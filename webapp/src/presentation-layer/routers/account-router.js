@@ -41,9 +41,12 @@ module.exports = function ({ accountManager, accountValidator }) {
 	router.post("/sign-in", function (req, res, next) {
 		const username = req.body.username
 		const password = req.body.password
-		accountValidator.validateAccount(username, password, function (err, account) {
-			if (account == null) {
-				res.redirect("/accounts/sign-in")
+		accountValidator.validateAccount(username, password, function (error, account) {
+			if (error.length) {
+				const model = {
+					error: error,
+				}
+				res.render("/accounts/sign-in.hbs", model)
 			}
 			else {
 				req.session.account = account

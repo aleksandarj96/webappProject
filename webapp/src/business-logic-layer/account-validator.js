@@ -18,15 +18,12 @@ module.exports = function({accountRepository}){
 		validateAccount:function(username, password, callback){
 			accountRepository.checkIfExist(username, function(error, hash){
 				if(error.length){
-					callback(['databaseError'], null)
+					callback(error, null)
 				}
 				else{
 					bcrypt.compare(password, hash, function(bcryptError, result){
 						if(result){
 							accountRepository.getAccountByUsername(username, callback)
-						}
-						else{
-							callback(['Wrong'], null)
 						}
 					})
 				}

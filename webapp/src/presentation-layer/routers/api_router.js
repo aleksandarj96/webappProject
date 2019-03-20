@@ -45,8 +45,10 @@ module.exports = function ({
 		accountValidator.validateAccount(username, password, function (error, account) {
 			if (account == null) {
 				response.status(404).end()
+				return
 			} else if (error.length) {
 				response.status(400).end()
+				return
 			} else {
 				const accessToken = jwt.sign({
 					accountId: account.id
@@ -69,7 +71,7 @@ module.exports = function ({
 		const post = request.body.post
 		const accountId = request.body.accountId
 		const username = request.body.username
-		databaseManager.postMoviePost(title, post, username, accountId, function (error) {
+		databaseManager.createPost(title, post, username, accountId, function (error) {
 			if (error.length) {
 				response.status(400).end()
 			} else {
@@ -78,19 +80,18 @@ module.exports = function ({
 		})
 	});
 
-	router.get("/movies", function (request, response) {
-		databaseManager.getAllMoviePosts(function (errors, movieposts) {
+	router.get("/posts", function (request, response) {
+		databaseManager.getAllPosts(function (errors, posts) {
 			if (errors.length) {
 				response.status(400).end()
 			} else {
-				response.status(200).json(movieposts)
+				response.status(200).json(posts)
 			}
 
 		})
 	})
-	router.get("/your-movie/:id", function (request, response) {
+	router.get("/your-post/:id", function (request, response) {
 		const id = request.params.id
-		console.log("apa" + id + " " + request.payload.accountId)
 		databaseManager.getPostWithMovieId(id, function (errors, moviepost) {
 			if (errors.length) {
 				response.status(500).end()
@@ -98,7 +99,6 @@ module.exports = function ({
 				const accountId = moviepost.accountId
 				if (!request.payload || request.payload.accountId != accountId) {
 					response.status(401).end()
-					console.log("Ingen payload")
 					return
 				} else {
 					response.status(200).json(moviepost)
@@ -108,7 +108,7 @@ module.exports = function ({
 
 		})
 	})
-	router.delete("/delete-your-movie/:id", function (request, response) {
+	router.delete("/delete-your-post/:id", function (request, response) {
 		const id = request.params.id
 		databaseManager.deleteMoviePost(id, function (error) {
 			if (error.length) {
@@ -118,7 +118,7 @@ module.exports = function ({
 			}
 		})
 	})
-	router.put("/your-movie/:id", function (request, response) {
+	router.put("/your-post/:id", function (request, response) {
 		const id = request.params.id
 		const title = request.body.title
 		const post = request.body.post
@@ -133,17 +133,21 @@ module.exports = function ({
 					return
 				}
 
-				databaseManager.editMoviePost(post, id, title, function (error) {
+				databaseManager.editPost(post, id, title, function (error) {
 					if (error.length) {
 						response.status(500).end()
+						return
+					}
+					else{
+						response.status(200).end()
+						return
 					}
 				})
 			}
 
 		})
-		databaseManager.editMoviePost(post, id, function (error) {
+		databaseManager.editPost(post, id, function (error) {
 			if (error.length) {
-				console.log(error)
 				response.status(400).end()
 			} else {
 				response.status(200).end()
@@ -151,20 +155,19 @@ module.exports = function ({
 		})
 	})
 
-	router.get("/your-movies/:accountId", function (request, response) {
+	router.get("/your-posts/:accountId", function (request, response) {
 		const accountId = request.payload.accountId
 		console.log(accountId + "apa")
-		databaseManager.getPostWithAccountId(accountId, function (error, movieposts) {
+		databaseManager.getPostWithAccountId(accountId, function (error, posts) {
 			if (error.length) {
 				response.status(400).end()
 			} else {
-				response.status(200).json(movieposts)
-				console.log(movieposts)
+				response.status(200).json(posts)
 			}
 		})
 
 	})
-	router.delete("/movies/:id", function (request, response) {
+	router.delete("/posts/:id", function (request, response) {
 
 		const id = request.params.id
 		const accountId = request.payload.accountId
@@ -172,7 +175,7 @@ module.exports = function ({
 			response.status(401).end()
 			return
 		}
-		databaseManager.deleteMoviePost(id, accountId, function (error) {
+		databaseManager.deletePost(id, accountId, function (error) {
 			if (error.length) {
 				response.status(400).end()
 			} else {
