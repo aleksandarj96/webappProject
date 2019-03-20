@@ -41,14 +41,8 @@ module.exports = function({db}){
 					callback([],password[0].password)
 				}
 				else{
-<<<<<<< HEAD
-					callback(['databaseError'],null)
-				}
-				
-=======
 					callback(['username doesnt exist'], null)
 				}	
->>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794
 			}
 	
 		})

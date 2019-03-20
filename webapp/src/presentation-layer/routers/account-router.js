@@ -30,20 +30,10 @@ module.exports = function ({ accountManager, accountValidator }) {
 				}
 				res.render("accounts-sign-up.hbs", model)
 			}
-<<<<<<< HEAD
-			if (errors.length) {
-				res.render("accounts-sign-up.hbs", model)
-				console.log("IF SATS")
-			} else {
-				res.render("accounts-sign-in.hbs", model)
-				console.log("ELSE SATS")
-			}
-=======
 			else{
 				res.redirect("/accounts/sign-in")
 			}
 			
->>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794
 		})
 	})
 	router.post("/sign-in", function (req, res, next) {

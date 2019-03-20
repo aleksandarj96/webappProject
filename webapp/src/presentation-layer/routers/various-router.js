@@ -23,7 +23,6 @@ module.exports = function ({databaseManager}) {
 
 	})
 
-<<<<<<< HEAD
 
 	router.get("/signedOut", function(request, response){
 		request.session.destroy()
@@ -31,12 +30,9 @@ module.exports = function ({databaseManager}) {
 		response.render("signedOut.hbs")
 	})
 
-	router.get("/movies", function (request, response) {
-		databaseManager.getAllMoviePosts(function (errors, posts) {
-=======
+
 	router.get("/posts", function (request, response) {
 		databaseManager.getAllPosts(function (errors, posts) {
->>>>>>> ebce8edad45af3e9f4eb28baebc1ddab557a5794
 			const model = {
 				errors: errors,
 				movieposts: posts,

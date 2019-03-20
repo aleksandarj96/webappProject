@@ -11,7 +11,7 @@ const db = require("./db")
 
 module.exports = function () {
 	return {
-		getAllMoviePosts: function (callback) {
+		getAllPosts: function (callback) {
 
 			console.log("test")
 			db.posts.findAll().then(function(allPosts){		
@@ -24,7 +24,7 @@ module.exports = function () {
 			})						
 		},
 
-		postMoivePost: function (title, post, username, callback) {
+		createPost: function (title, post, username, callback) {
 
 			db.posts.create({title : title, post: post, username: username}).then(function(createdPost){
 				console.log("created post: " + createdPost)		
@@ -36,7 +36,7 @@ module.exports = function () {
 
 		},
 
-		getPostWithMovieId: function (postId, callback) {
+		getPostWithId: function (postId, callback) {
 
 			/*
 			const query = "SELECT * FROM movieposts WHERE id = ?"
