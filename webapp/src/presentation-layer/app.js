@@ -12,7 +12,12 @@ const accountValidator = require('../business-logic-layer/account-validator')
 const databaseManager = require('../business-logic-layer/database-manager')
 const accountRepository = require('../data-access-layer/account-repository')
 const databaseFunctions = require('../data-access-layer/database-functions')
-const db = require('../data-access-layer/db.js')
+//const db = require('../data-access-layer/db.js')
+const db = require('../seq/db.js')
+
+const accountRepositorySeq = require('../seq/account-repository')
+const databaseFunctionsSeq = require('../seq/database-functions')
+
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
 const apiRouter = require('./routers/api_router')
@@ -20,9 +25,9 @@ const apiRouter = require('./routers/api_router')
 // Setup express-handlebars.
 app.set('views', path.join(__dirname, 'views'))
 const container = awilix.createContainer()
-container.register("databaseFunctions", awilix.asFunction(databaseFunctions))
+container.register("databaseFunctions", awilix.asFunction(databaseFunctionsSeq))
 container.register("db", awilix.asValue(db))
-container.register("accountRepository", awilix.asFunction(accountRepository))
+container.register("accountRepository", awilix.asFunction(accountRepositorySeq))
 container.register("databaseManager", awilix.asFunction(databaseManager))
 container.register("variousRouter", awilix.asFunction(variousRouter))
 container.register("accountManager", awilix.asFunction(accountManager))
@@ -71,3 +76,10 @@ app.use('/accounts', theAccountRouter)
 app.listen(8080, function(){
 	console.log('Running on 8080!')
 })
+
+
+app.use(function (req, res, next) {
+	if (res.status(404)) {
+	  res.send('404: File Not Found :( ');
+	}
+  });
