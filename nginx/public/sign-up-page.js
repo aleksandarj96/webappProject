@@ -1,6 +1,8 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
 	const signUpForm = document.querySelector("#sign-up-page form")
+	
 		signUpForm.addEventListener("submit", function (event) {
 		event.preventDefault();
 
@@ -18,11 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
 			})
 		}).then(function (response) {
 			console.log(response)
+			return response.json()
 		}).catch(function (error) {
 			console.log(error)
-			alert('Bad credentials')
 		})
-		changePage("/sign-in")
+		
+		
 	})
 
 })

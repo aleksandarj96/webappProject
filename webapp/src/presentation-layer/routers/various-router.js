@@ -26,7 +26,6 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/signedOut", function(request, response){
 		request.session.destroy()
-
 		response.render("signedOut.hbs")
 	})
 
@@ -35,10 +34,10 @@ module.exports = function ({databaseManager}) {
 		databaseManager.getAllPosts(function (errors, posts) {
 			const model = {
 				errors: errors,
-				movieposts: posts,
+				posts: posts,
 				login: request.session.login
 			}
-			response.render("movies.hbs", model)
+			response.render("posts.hbs", model)
 		})
 	})
 
@@ -54,17 +53,14 @@ module.exports = function ({databaseManager}) {
 
 	router.get("/post/:id", function (request, response) {
 		const id = request.params.id
-		const date = new Date();
-		const current_hour = date.getHours();
-		databaseManager.getPostWithId(id, function (error, posts) {
+		databaseManager.getPostWithId(id, function (error, post) {
 			databaseManager.getCommentsWithId(id, function (error, comments) {
 				const model = {
 					error: error,
-					time: current_hour,
-					movieposts: posts,
+					posts: post,
 					comments: comments,
 					login: request.session.login
-				}
+				}				
 				response.render("post.hbs", model)
 			})
 		})
@@ -78,10 +74,10 @@ module.exports = function ({databaseManager}) {
 			databaseManager.commentOnPostWithId(id, comment, request.session.account.username, function (error) {
 				const model = {
 					error: error,
-					movieposts: posts,
+					posts: posts,
 					login: request.session.login
 				}
-				response.render("post.hbs", model)
+				response.redirect('back');
 			})
 		})
 	})
@@ -92,10 +88,14 @@ module.exports = function ({databaseManager}) {
 		const post = request.body.post
 		const username = request.session.account.username
 		const accountId = request.session.account.id
-
 		databaseManager.createPost(title, post, username, accountId, function (error) {
+			const model = {
+				login: request.session.login,
+				newPost: 1
+			}
+			response.render("new-post.hbs", model)
 		})
-		response.render("new-post.hbs", {login: request.session.login})
+		
 	});
 
 

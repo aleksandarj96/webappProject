@@ -30,12 +30,27 @@ module.exports = function ({ accountManager, accountValidator }) {
 				}
 				res.render("accounts-sign-up.hbs", model)
 			}
-			else{
-				res.redirect("/accounts/sign-in")
-			}
-			
+			else{	
+				accountValidator.validateAccount(username, password, function (errors, account) {
+					if (errors.length) {
+						const model = {
+								errors: errors,
+						}
+						res.render("accounts-sign-in.hbs", model)
+					}else{
+						req.session.account = account
+						req.session.login = true
+						const model = {
+							account: account,
+							login: req.session.login
+						}
+						res.render("home.hbs", model)
+					}
+				})
+			}	
 		})
 	})
+
 	router.post("/sign-in", function (req, res, next) {
 		const username = req.body.username
 		const password = req.body.password

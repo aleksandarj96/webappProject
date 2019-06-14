@@ -8,19 +8,9 @@ module.exports = function({accountRepository}){
 			const errors = []
 			if(!username){
 				errors.push("usernameMissing")
-				console.log("username missing")
 			}else if(username.length < MIN_USERNAME_LENGTH){
 				errors.push("username must be atleast 3 symbols")
-				console.log("username to short")
-			}else{
-			accountRepository.checkIfExist(username, function(error, hash){
-				 if(hash.length){
-					errors.push("username already exists")	
-					console.log(errors)
-					return errors
-				}
-				
-			})}
+			}
 			return errors
 			
 		},

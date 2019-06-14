@@ -27,13 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
 			userInfo = jwt_decode(idToken)
 
 			document.querySelector("nav").classList.add("user-is-logged-in")
-			document.getElementById("username").innerText = username
-
-			changePage("/movies")
+			
+			changePage("/posts")
 
 		}).catch(function (error) {
+			alert('Something went wrong')
 			console.log(error)
-			alert('Wrong username or password')
 		})
 
 	})

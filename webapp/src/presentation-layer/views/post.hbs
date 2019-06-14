@@ -35,26 +35,31 @@
 
 <body>
 
+<script>
+    $(document).ready(function(){ 
+  $(form).on('submit', function(){ 
+        location.reload(true);
+  });
+})
+</script>
 <br>
 
-{{#each movieposts}}
+
 
     <hr>
   
 	<div class="card" id="card-class">
 	
-	<span class="left"><strong>{{title}}</strong></span>
-	<span class="right">Tag: Question</span>
+	<span class="left"><strong>{{posts.title}}</strong></span>
 	<br>
 	<br>
-    <p>{{post}}</p>
+    <p>{{posts.post}}</p>
 	<br>	
-	<p><small>Posted by {{username}} </small></p>
+	<p><small>Posted by {{posts.username}} </small></p>
 
 
     </div>
 
-{{/each}}
 
 {{#if login}}
 
@@ -75,3 +80,4 @@
 
 {{/each}}
 </body>
+

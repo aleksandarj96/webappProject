@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes){
 		postid: {
 			type: DataTypes.CHAR,
             allowNull: false,
-            references: 'movieposts',
+            references: 'posts',
             referencesKey: 'id'
         },
         username : {

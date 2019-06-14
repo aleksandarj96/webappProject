@@ -2,7 +2,7 @@ module.exports = function ({db}) {
 	return {
 		getAllPosts: function (callback) {
 
-			const query = "SELECT * FROM movieposts"
+			const query = "SELECT * FROM posts"
 			const values = []
 
 			db.query(query, values, function (error, posts) {
@@ -16,7 +16,7 @@ module.exports = function ({db}) {
 
 		createPost: function (title, post, username, accountId) {
 
-			const query = "INSERT INTO movieposts (title, post, username, accountId) VALUES (?,?,?,?)"
+			const query = "INSERT INTO posts (title, post, username, accountId) VALUES (?,?,?,?)"
 			const values = [title, post, username, accountId]
 
 			db.query(query, values, function (error) {
@@ -27,7 +27,7 @@ module.exports = function ({db}) {
 			})
 		},
 		editPost: function (post, id, title, callback){
-			const query = "UPDATE movieposts SET post = ?, title = ? WHERE id = ?"
+			const query = "UPDATE posts SET post = ?, title = ? WHERE id = ?"
 			const values = [post, title, id]
 			db.query(query, values, function(error){
 				if(error){
@@ -37,7 +37,7 @@ module.exports = function ({db}) {
 		},
 
 		deletePost: function ( id, callback) {
-			const query = "DELETE FROM movieposts WHERE id = ?"
+			const query = "DELETE FROM posts WHERE id = ?"
 			const values = [id]
 			db.query(query, values, function (error) {
 				if (error) {
@@ -47,7 +47,7 @@ module.exports = function ({db}) {
 		},
 		getPostWithId: function (id, callback) {
 
-			const query = "SELECT * FROM movieposts WHERE id = ?"
+			const query = "SELECT * FROM posts WHERE id = ?"
 
 			db.query(query, id, function (error, results) {
 				if (error){
@@ -59,7 +59,7 @@ module.exports = function ({db}) {
 
 		getPostWithAccountId: function (id, callback) {
 
-			const query = "SELECT * FROM movieposts WHERE accountId = ?"
+			const query = "SELECT * FROM posts WHERE accountId = ?"
 
 			db.query(query, id, function (error, results) {
 				if (error){

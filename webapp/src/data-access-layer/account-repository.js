@@ -15,21 +15,7 @@ module.exports = function({db}){
 		})
 		
 	},
-/*
-	getAllPasswords:function(callback){
-		
-		const query = `SELECT * FROM accounts ORDER BY username`
-		const values = []
-		
-		db.query(query, values, function(error, accounts){
-			if(error){
-				callback(['databaseError'], null)
-			}else{
-				callback([], accounts)
-			}
-		})
-		
-	},*/
+
 	checkIfExist:function(username, callback){
 		const query = `SELECT password FROM accounts WHERE username = ? `
 		const values = [username]
@@ -92,8 +78,3 @@ module.exports = function({db}){
 }
 
 }
-/*
-	Retrieves all accounts ordered by username.
-	Possible errors: databaseError
-	Success value: The fetched accounts in an array.
-*/

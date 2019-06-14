@@ -1,5 +1,13 @@
 <html>
-
+<head>
+  {{#if newPost}}
+<script>
+  function newPostAlert(){
+    alert("New post created!")
+  }
+</script>
+{{/if}}
+</head>
 <style>
 
 
@@ -26,7 +34,7 @@ input[type=text], input[type=password] {
 
 </style>
 
-<body>
+<body onload="newPostAlert()">
 
 <div class="content">
 
@@ -56,4 +64,7 @@ input[type=text], input[type=password] {
 </form>
 
 </body>
+
+
+
 </html>

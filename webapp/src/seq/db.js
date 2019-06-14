@@ -26,7 +26,7 @@ sequelize
 	});
 
 
-const posts = sequelize.define('movieposts', {
+const posts = sequelize.define('posts', {
 	title: {
 		type: Sequelize.CHAR,
 		allowNull: false
@@ -38,6 +38,11 @@ const posts = sequelize.define('movieposts', {
 	username: {
 		type: Sequelize.CHAR,
 		allowNull: false
+	},
+	accountId: {
+		type: Sequelize.INTEGER,
+		references: "accounts",
+		referencesKey: "id"
 	}
 });
 
@@ -65,14 +70,13 @@ const comments = sequelize.define('comments',{
 	username : {
 		type: Sequelize.CHAR,
 		allowNull : false,
-		//references : 'accounts',
-		//referencesKey : 'username'
+		references : 'accounts',
+		referencesKey : 'username'
 	}
 })
 
 accounts.hasMany(comments, {foreignKey: 'username'})
 posts.hasMany(comments, {foreignKey : 'postId'})
-
 
 exports.posts = posts;
 exports.accounts = accounts;

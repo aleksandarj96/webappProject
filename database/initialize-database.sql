@@ -7,7 +7,7 @@ CREATE TABLE accounts (
 
 );
 
-CREATE TABLE movieposts (
+CREATE TABLE posts (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(50) NOT NULL, 
 	post VARCHAR(255) NOT NULL, 
@@ -22,12 +22,9 @@ CREATE TABLE comments (
 	comment VARCHAR(255) NOT NULL,
 	postid INT UNSIGNED NOT NULL,
 	username VARCHAR(50) NOT NULL,
-	FOREIGN KEY (postid) REFERENCES movieposts(id),
+	FOREIGN KEY (postid) REFERENCES posts(id),
 	FOREIGN KEY (username) REFERENCES accounts(username)
 );
-
-SHOW ENGINE INNODB STATUS;
--- Create a dummy account for testing.
 
 
 
