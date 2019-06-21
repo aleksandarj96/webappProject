@@ -9,7 +9,9 @@ const awilix = require('awilix')
 
 const accountManager = require('../business-logic-layer/account-manager')
 const accountValidator = require('../business-logic-layer/account-validator')
-const databaseManager = require('../business-logic-layer/database-manager')
+//const databaseManager = require('../business-logic-layer/database-manager')
+const postManager = require('../business-logic-layer/post-manager')
+const commentManager = require('../business-logic-layer/comment-manager')
 const accountRepository = require('../data-access-layer/account-repository')
 const databaseFunctions = require('../data-access-layer/database-functions')
 //const db = require('../data-access-layer/db.js')
@@ -21,6 +23,7 @@ const databaseFunctionsSeq = require('../seq/database-functions')
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
 const apiRouter = require('./routers/api_router')
+const postRouter = require('./routers/post-router')
 
 // Setup express-handlebars.
 app.set('views', path.join(__dirname, 'views'))
@@ -28,8 +31,11 @@ const container = awilix.createContainer()
 container.register("databaseFunctions", awilix.asFunction(databaseFunctionsSeq))
 container.register("db", awilix.asValue(db))
 container.register("accountRepository", awilix.asFunction(accountRepositorySeq))
-container.register("databaseManager", awilix.asFunction(databaseManager))
+//container.register("databaseManager", awilix.asFunction(databaseManager))
+container.register("commentManager", awilix.asFunction(commentManager))
+container.register("postManager", awilix.asFunction(postManager))
 container.register("variousRouter", awilix.asFunction(variousRouter))
+container.register("postRouter", awilix.asFunction(postRouter))
 container.register("accountManager", awilix.asFunction(accountManager))
 container.register("accountRouter", awilix.asFunction(accountRouter))
 container.register("accountValidator", awilix.asFunction(accountValidator))
@@ -38,6 +44,8 @@ container.register("apiRouter", awilix.asFunction(apiRouter))
 const theAccountRouter = container.resolve('accountRouter')
 const theApiRouter = container.resolve('apiRouter')
 const theVariousRouter = container.resolve('variousRouter')
+const thePostRouter = container.resolve('postRouter')
+
 app.engine('hbs', expressHandlebars({
 	extname: 'hbs',
 	defaultLayout: 'main',
@@ -77,6 +85,8 @@ app.use(express.urlencoded({
 app.use('/api', theApiRouter)
 app.use('/', theVariousRouter)
 app.use('/accounts', theAccountRouter)
+app.use('/', thePostRouter)
+
 
 // Start listening for incoming HTTP requests!
 app.listen(8080, function () {

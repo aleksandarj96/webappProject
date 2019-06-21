@@ -5,7 +5,8 @@ const jwtSecret = "adfsdfsdfsdfsd"
 module.exports = function ({
 		accountManager,
 		accountValidator,
-		databaseManager
+		commentManager,
+		postManager
 		}) {
 		const router = express.Router()
 		router.use(function (request, response, next) {
@@ -75,7 +76,7 @@ module.exports = function ({
 			const post = request.body.post
 			const accountId = request.body.accountId
 			const username = request.body.username
-			databaseManager.createPost(title, post, username, accountId, function (error) {
+			postManager.createPost(title, post, username, accountId, function (error) {
 				if (error.length) {
 					response.status(400).end()
 				} 
@@ -86,7 +87,7 @@ module.exports = function ({
 		})
 
 		router.get("/posts", function (request, response) {
-			databaseManager.getAllPosts(function (errors, posts) {
+			postManager.getAllPosts(function (errors, posts) {
 				if (errors.length) {
 					response.status(400).end()
 				} 
@@ -99,7 +100,7 @@ module.exports = function ({
 		
 		router.delete("/delete-your-post/:id", function (request, response) {
 			const id = request.params.id
-			databaseManager.deletePost(id, function (error) {
+			postManager.deletePost(id, function (error) {
 				if (error.length) {
 					response.status(400).end()
 				} 
@@ -110,7 +111,7 @@ module.exports = function ({
 		})
 		router.get("/your-post/:id", function(request, response){
 			const id = request.params.id
-			databaseManager.getPostWithId(id, function(errors, post){
+			postManager.getPostWithId(id, function(errors, post){
 				const accountId =  post.accountId
 				if(errors.length){
 					response.status(400).end()
@@ -129,7 +130,7 @@ module.exports = function ({
 			const id = request.params.id
 			const title = request.body.title
 			const post = request.body.post
-			databaseManager.getPostWithId(id, function(errors, dbPost){
+			postManager.getPostWithId(id, function(errors, dbPost){
 				if(errors.length){
 					response.status(400).end()
 				}
@@ -141,7 +142,7 @@ module.exports = function ({
 						return
 					}
 
-					databaseManager.editPost(post, id, title, function (error) {
+					postManager.editPost(post, id, title, function (error) {
 						if (error.length) {
 							response.status(400).end()
 							return
@@ -158,7 +159,7 @@ module.exports = function ({
 	
 		router.get("/your-posts/:accountId", function (request, response) {
 			const accountId = request.payload.accountId
- 			databaseManager.getPostWithAccountId(accountId, function (error, posts) {
+			postManager.getPostWithAccountId(accountId, function (error, posts) {
 				if (error.length) {
 					response.status(400).end()
 				} 

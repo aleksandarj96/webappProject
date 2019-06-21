@@ -105,7 +105,7 @@ module.exports = function () {
 		},
 
 
-		commentOnPostWithId: function (id, commentToPost, usernameThatPosted, callback) {
+		commentOnPostWithPostId: function (id, commentToPost, usernameThatPosted, callback) {
 
 			db.comments.create({comment : commentToPost, username : usernameThatPosted, postId : id})
 			.then(function(comment){

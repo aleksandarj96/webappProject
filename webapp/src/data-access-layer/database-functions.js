@@ -83,7 +83,7 @@ module.exports = function ({db}) {
 		},
 		
 
-		commentOnPostWithId: function (id, comment, username, callback) {
+		commentOnPostWithPostId: function (id, comment, username, callback) {
 
 			const query = "INSERT INTO comments (comment, postId, username) VALUES (?,?,?)"
 			const values = [comment, id, username]
