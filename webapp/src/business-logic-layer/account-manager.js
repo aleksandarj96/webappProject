@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const saltRounds = 10;
+const saltRounds = 10
 module.exports = function ({
 	accountRepository,
 	accountValidator

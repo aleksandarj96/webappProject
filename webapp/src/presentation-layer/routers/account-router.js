@@ -20,7 +20,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 		}
 
 	})
-	router.post("/sign-up", module.exports = function (req, res, next) {
+	router.post("/sign-up", function (req, res, next) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, accounts) {

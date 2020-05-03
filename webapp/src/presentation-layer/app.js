@@ -96,6 +96,6 @@ app.listen(8080, function () {
 
 app.use(function (req, res, next) {
 	if (res.status(404)) {
-	  res.send('404: File Not Found :( ');
+	  res.send('404: File Not Found :( ')
 	}
-  });
+  })

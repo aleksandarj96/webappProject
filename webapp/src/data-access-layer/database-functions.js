@@ -14,35 +14,38 @@ module.exports = function ({db}) {
 			})
 		},
 
-		createPost: function (title, post, username, accountId) {
+		createPost: function (title, post, username, accountId, callback) {
 
 			const query = "INSERT INTO posts (title, post, username, accountId) VALUES (?,?,?,?)"
 			const values = [title, post, username, accountId]
 
-			db.query(query, values, function (error) {
+			db.query(query, values, function (error, results) {
 				if (error){
 					callback(["dbError"])
 				}
+				callback([], results)
 				
 			})
 		},
 		editPost: function (post, id, title, callback){
 			const query = "UPDATE posts SET post = ?, title = ? WHERE id = ?"
 			const values = [post, title, id]
-			db.query(query, values, function(error){
+			db.query(query, values, function(error, results){
 				if(error){
 					callback(["dbError"])
 				}
+				callback([], results)
 			})
 		},
 
 		deletePost: function ( id, callback) {
 			const query = "DELETE FROM posts WHERE id = ?"
 			const values = [id]
-			db.query(query, values, function (error) {
+			db.query(query, values, function (error, results) {
 				if (error) {
 					callback(["database error"])
 				} 
+				callback([], results)
 			})
 		},
 		getPostWithId: function (id, callback) {
@@ -88,10 +91,12 @@ module.exports = function ({db}) {
 			const query = "INSERT INTO comments (comment, postId, username) VALUES (?,?,?)"
 			const values = [comment, id, username]
 
-			db.query(query, values, function (error) {
+			db.query(query, values, function (error, results) {
 				if (error){
-					callback(["database error"])
+					callback(["database error"], null)
+
 				}
+				callback([], results)
 			})
 		}
 

@@ -12,12 +12,13 @@ module.exports = function ({postManager, commentManager}) {
 		const id = request.params.id
 		const comment = request.body.comment
 		postManager.getPostWithId(id, function (error, posts) {
-			commentManager.commentOnPostWithPostId(id, comment, request.session.account.username, function (error) {
+			commentManager.commentOnPostWithPostId(id, comment, request.session.account.username, function (error, results) {
 				const model = {
 					error: error,
 					posts: posts,
+					result: results,
 				}
-				response.redirect('back');
+				response.redirect('back')
 			})
 		})
 	})
@@ -35,7 +36,7 @@ module.exports = function ({postManager, commentManager}) {
 			response.render("new-post.hbs", model)
 		})
 		
-	});
+	})
 
 
 	return router

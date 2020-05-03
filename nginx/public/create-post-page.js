@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	const createPost = document.querySelector("#create-post-page form")
 	
 	createPost.addEventListener("submit", function(event){
-		event.preventDefault();
+		event.preventDefault()
 		
 		const title = document.getElementById("post-title").value
 		const postContent = document.getElementById("post-content").value

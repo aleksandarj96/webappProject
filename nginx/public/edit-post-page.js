@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const editPostForm = document.querySelector("#edit-post-page form")
 
 	editPostForm.addEventListener("submit", function (event) {
-		event.preventDefault();
+		event.preventDefault()
 
 		const title = document.getElementById("edit-post-title").value
 		const content = document.getElementById("edit-post-content").value
