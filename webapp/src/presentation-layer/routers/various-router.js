@@ -30,16 +30,7 @@ module.exports = function ({postManager, commentManager}) {
 	})
 
 
-	router.get("/posts", function (request, response) {
-		postManager.getAllPosts(function (errors, posts) {
-			const model = {
-				errors: errors,
-				posts: posts,
-				login: request.session.login
-			}
-			response.render("posts.hbs", model)
-		})
-	})
+
 
 	router.get("/new-post", function (request, response) {
 		if(request.session.login == true){

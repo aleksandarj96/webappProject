@@ -5,9 +5,10 @@ const db = require("./db")
 module.exports = function () {
 	return {
 		getAllPosts: function (callback) {
-			db.posts.findAll().then(function(allPosts){		
-				console.log(allPosts)		
+			db.posts.findAll({raw: true}).then(function(allPosts){	
+				console.log(allPosts, "Hej hej hej")
 				callback([], allPosts)
+			
 			})	
 			.catch(function(error){
 				console.log(error)
@@ -27,10 +28,11 @@ module.exports = function () {
 		},
 
 		getPostWithId: function (id, callback) {
-			db.posts.findOne({
+			db.posts.findOne({ 
 				where: {
 					id : id
-				}
+				},
+				raw: true
 			}).then(function(post){
 				console.log("Post: " + post)
 				callback([], post)
@@ -46,7 +48,7 @@ module.exports = function () {
 			db.posts.findAll({
 				where : {
 					accountId: id
-				}
+				}, raw: true
 			}).then(function(post){
 				callback([], post)
 				
@@ -60,7 +62,7 @@ module.exports = function () {
 
 				where : {
 					postId : id
-				}
+				}, raw: true
 			}).then(function(comment){
 				callback([], comment)
 			}).catch(function(error){

@@ -13,17 +13,17 @@ const sequelize = new Sequelize('webAppDatabase', 'root', 'theRootPassword', {
 		min: 0,
 		idle: 10000
 	},
-});
+})
 
 sequelize
 	.authenticate()
 	.then(() => {
-		console.log('Connection has been established successfully.');
+		console.log('Connection has been established successfully.')
 
 	})
 	.catch(err => {
-		console.error('Unable to connect to the database:', err);
-	});
+		console.error('Unable to connect to the database:', err)
+	})
 
 
 const posts = sequelize.define('posts', {
@@ -44,7 +44,8 @@ const posts = sequelize.define('posts', {
 		references: "accounts",
 		referencesKey: "id"
 	}
-});
+})
+
 
 const accounts = sequelize.define('accounts',{
 	username: {
@@ -78,9 +79,9 @@ const comments = sequelize.define('comments',{
 accounts.hasMany(comments, {foreignKey: 'username'})
 posts.hasMany(comments, {foreignKey : 'postId'})
 
-exports.posts = posts;
-exports.accounts = accounts;
-exports.comments = comments;
+exports.posts = posts
+exports.accounts = accounts
+exports.comments = comments
 
 
 

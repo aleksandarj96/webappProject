@@ -16,7 +16,7 @@ module.exports = function({db}){
 		
 	},
 
-	checkIfExist:function(username, callback){
+	passwordByUsername:function(username, callback){
 		const query = `SELECT password FROM accounts WHERE username = ? `
 		const values = [username]
 		db.query(query, values, function(error, password){

@@ -34,7 +34,7 @@ module.exports = function({}){
 		})
 		
 	},
-	checkIfExist:function(usernameToCheck, callback){
+	passwordByUsername:function(usernameToCheck, callback){
 
 		db.accounts.findAll({				
 			where : {
@@ -75,14 +75,14 @@ module.exports = function({}){
 	
 	
 	createAccount:function(username, password, callback){
-		
+
 		db.accounts.create({username: username, password: password}).then(function(createdAccount){
 			console.log("created account: " + createdAccount)
 			callback([], createdAccount)
 					
 		}).catch(function(error){
 			console.log(error)
-			callback(["databaseError"],null)
+			callback([],null)
 		})			
 
 	}

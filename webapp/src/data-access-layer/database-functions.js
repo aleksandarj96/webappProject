@@ -5,11 +5,11 @@ module.exports = function ({db}) {
 			const query = "SELECT * FROM posts"
 			const values = []
 
-			db.query(query, values, function (error, posts) {
+			db.query(query, values, function (error, results) {
 				if (error) {
 					callback(['database Error'], null)
 				} else {
-					callback([], posts)
+					callback([], results)
 				}
 			})
 		},
@@ -39,10 +39,11 @@ module.exports = function ({db}) {
 		deletePost: function ( id, callback) {
 			const query = "DELETE FROM posts WHERE id = ?"
 			const values = [id]
-			db.query(query, values, function (error) {
+			db.query(query, values, function (error, ) {
 				if (error) {
 					callback(["database error"])
-				} 
+				}
+
 			})
 		},
 		getPostWithId: function (id, callback) {

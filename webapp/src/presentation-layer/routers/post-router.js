@@ -17,10 +17,23 @@ module.exports = function ({postManager, commentManager}) {
 					error: error,
 					posts: posts,
 				}
-				response.redirect('back');
+				response.render('posts.hbs', model)
 			})
 		})
 	})
+
+	router.get("/posts", function (request, response) {
+		postManager.getAllPosts(function (errors, posts) {
+			console.log(posts[0]["posts"], "Hej din stora apa" , errors)
+			const model = {
+				errors: errors,
+				posts: posts,
+				login: request.session.login
+			}
+			response.render("posts.hbs", model)
+		})
+	})
+	
 
 	router.post("/new-post", function (request, response) {
 
@@ -35,7 +48,7 @@ module.exports = function ({postManager, commentManager}) {
 			response.render("new-post.hbs", model)
 		})
 		
-	});
+	})
 
 
 	return router

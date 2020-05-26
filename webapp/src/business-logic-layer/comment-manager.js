@@ -8,10 +8,11 @@ module.exports = function({databaseFunctions}){
 		
 		commentOnPostWithPostId:function(id, comment, username, callback){
 			if(username == null){
-				callback(errors, null)
+				callback(["No user"], null)
 			}
-			databaseFunctions.commentOnPostWithPostId(id,comment, username, callback)
-		}
+			else{
+				databaseFunctions.commentOnPostWithPostId(id,comment, username, callback)
+			}}
 
 	}
 }

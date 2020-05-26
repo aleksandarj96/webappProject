@@ -16,7 +16,7 @@ module.exports = function({accountRepository}){
 		},
 		
 		validateAccount:function(username, password, callback){
-			accountRepository.checkIfExist(username, function(error, hash){
+			accountRepository.passwordByUsername(username, function(error, hash){
 				if(error.length){
 					callback(error, null)
 				}

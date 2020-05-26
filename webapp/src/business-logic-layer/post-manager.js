@@ -1,8 +1,17 @@
 
 module.exports = function({databaseFunctions}){
 	return{
-		getAllPosts:function(callback){
-			databaseFunctions.getAllPosts(callback)
+		
+		getAllPosts:function(callback){	
+			databaseFunctions.getAllPosts(function(error, results){
+				if(error.length != 0){
+					callback(["Database error"], null)
+				}
+				else{
+					console.log("Business logic layer", results)
+					callback([], results)
+				}})	
+			
 		},
 		
 		createPost:function(title, post, username, accountId, callback){

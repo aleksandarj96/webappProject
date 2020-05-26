@@ -33,14 +33,14 @@
 
 	{{#each posts}}
 
-	<a href="/post/{{id}}">
+	<a href="/post/{{this.id}}">
 		<div class="card" id="card-class">
 
-			<span class="left"><strong>{{title}}</strong></span>
+			<span class="left"><strong>{{this.title}}</strong></span>
 			<br>
 			<br>
 			<br>
-			<p><small>Posted by {{username}}</small></p>
+			<p><small>Posted by {{this.username}}</small></p>
 
 		</div>
 	</a>
