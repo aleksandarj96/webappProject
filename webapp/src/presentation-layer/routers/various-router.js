@@ -23,14 +23,10 @@ module.exports = function ({postManager, commentManager}) {
 
 	})
 
-
 	router.get("/signedOut", function(request, response){
 		request.session.destroy()
 		response.render("signedOut.hbs")
 	})
-
-
-
 
 	router.get("/new-post", function (request, response) {
 		if(request.session.login == true){

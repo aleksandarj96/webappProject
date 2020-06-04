@@ -24,7 +24,6 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, accounts) {
-			console.log("IF XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX " + errors)
 			if(errors.length){
 				const model = {
 					errors: errors
@@ -65,14 +64,11 @@ module.exports = function ({ accountManager, accountValidator }) {
 			else {
 				req.session.account = account
 				req.session.login = true
-				const model = {
-					account: account,
-					login: req.session.login
-				}
-				res.render("home.hbs", model)
+
+				console.log(account.username, "dksljbhakfldhbfkaldfhbakhldfhabfalhb")
+				res.redirect("/")
 			}
 		})
-
 	})
 
 	router.get("/", function (request, response) {
