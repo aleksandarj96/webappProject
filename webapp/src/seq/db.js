@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize('webAppDatabase', 'root', 'theRootPassword', {
-	host: 'database',
+	host: '192.168.99.100',
 	dialect: 'mysql',
 	define: {
 		timestamps: false
